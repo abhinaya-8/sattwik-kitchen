@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sattwik Kitchen | Pure Vegetarian Home-Style Food</title>
+  <meta name="description" content="Sattwik Kitchen serves pure vegetarian home-style food, tiffins, pickles, powders, catering and custom orders across Metro Vancouver." />
+  <meta name="theme-color" content="#3b1d0d" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Sattwik Kitchen home">
+        <img class="brand-logo" src="https://res.cloudinary.com/spfurewl/image/upload/v1789330411/sattwik-logo.png" alt="Sattwik Kitchen logo" />
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#menu">Menu</a>
+        <a href="#plans">Tiffin Plans</a>
+        <a href="#catering">Catering</a>
+        <a href="#contact">Contact</a>
+        <a id="customerAccountLink" href="/customer/login.html">Login / Signup</a>
+        <a id="customerOrdersLink" class="hidden" href="/customer/orders.html">My Orders</a>
+        <button id="customerLogoutBtn" class="nav-logout-btn hidden" type="button">Logout</button>
+        <a class="nav-cta" href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener">Order on WhatsApp</a>
+      </nav>
+      <div class="header-actions">
+        <button class="header-cart" id="cartButton" type="button" aria-label="Open shopping cart" aria-controls="cartDrawer" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l1.7 9.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.5L20 7H6.1M9 20a1.35 1.35 0 1 0 0-2.7A1.35 1.35 0 0 0 9 20Zm8 0a1.35 1.35 0 1 0 0-2.7A1.35 1.35 0 0 0 17 20Z"/></svg>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">PURE VEGETARIAN • HOME-STYLE • MADE WITH CARE</div>
+          <h1>Comforting vegetarian food that tastes <em>like home.</em></h1>
+          <p class="hero-lead">Fresh South Indian-style tiffins, sweets, snacks, pickles, powders and customized vegetarian catering — prepared for families across Metro Vancouver.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener">Place an order</a>
+            <a class="btn btn-secondary" href="#menu">Explore the menu</a>
+          </div>
+          <div class="trust-row">
+            <div><strong>100%</strong><span>Vegetarian</span></div>
+            <div><strong>Mon–Fri</strong><span>Tiffin service</span></div>
+            <div><strong>Food Safe</strong><span>Certified</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="hero-card hero-card-main">
+            <img src="https://res.cloudinary.com/spfurewl/image/upload/v1789330170/tiffin-hero.png" alt="Sattwik Kitchen vegetarian tiffin menu and meal packages" />
+          </div>
+          <div class="floating-card">
+            <span class="floating-icon">🚚</span>
+            <div><strong>Delivery available</strong><small>Burnaby • New Westminster • Surrey • Delta</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-links" aria-label="Menu category links">
+      <div class="container quick-grid">
+        <a href="https://www.facebook.com/share/14NusKLjLYf/" target="_blank" rel="noopener"><span>🥣</span><strong>Tiffins</strong><small>View individual menu</small></a>
+        <a href="https://www.facebook.com/share/16mLzNVAoX/" target="_blank" rel="noopener"><span>🍮</span><strong>Sweets</strong><small>View individual menu</small></a>
+        <a href="https://www.facebook.com/share/17XLFct67d/" target="_blank" rel="noopener"><span>🥨</span><strong>Snacks</strong><small>View individual menu</small></a>
+        <a href="https://www.facebook.com/marketplace/item/1599924425047230/" target="_blank" rel="noopener"><span>🫙</span><strong>Pickles &amp; Powders</strong><small>View individual menu</small></a>
+      </div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">ORDER FROM THE MENU</div>
+            <h2>Pick your favourites</h2>
+          </div>
+          <p>Use the + and − buttons to change quantities. Your cart updates instantly — no separate add-to-cart step is needed.</p>
+        </div>
+
+        <div class="menu-toggle reveal" role="tablist" aria-label="Menu categories">
+          <button class="active" type="button" role="tab" aria-selected="true" data-menu-tab="pickles">Pickles</button>
+          <button type="button" role="tab" aria-selected="false" data-menu-tab="powders">Powders</button>
+          <button type="button" role="tab" aria-selected="false" data-menu-tab="custom">Custom Order</button>
+        </div>
+
+        <div class="menu-tab-content reveal">
+          <div class="menu-tab-panel" id="picklesMenu" data-menu-panel="pickles" role="tabpanel">
+            <div class="menu-category-heading">
+              <span class="pill">House-made</span>
+              <h3>Pickles &amp; Pulihora Pulusu</h3>
+              <p>Fresh vegetarian favourites prepared in small batches.</p>
+            </div>
+            <div class="product-grid" id="picklesGrid"></div>
+          </div>
+
+          <div class="menu-tab-panel hidden" id="powdersMenu" data-menu-panel="powders" role="tabpanel">
+            <div class="menu-category-heading">
+              <span class="pill">Pantry favourites</span>
+              <h3>Powders</h3>
+              <p>Traditional flavour boosters made for easy everyday meals.</p>
+            </div>
+            <div class="product-grid" id="powdersGrid"></div>
+          </div>
+
+          <div class="menu-tab-panel hidden" id="customMenu" data-menu-panel="custom" role="tabpanel">
+            <div class="custom-order-card">
+              <span class="pill">Made for you</span>
+              <h3>Custom Order</h3>
+              <p>Need sweets, snacks, catering, a special quantity, or something not listed above? Add the details here and include them in the same enquiry.</p>
+              <label for="customOrderText">What would you like?</label>
+              <textarea id="customOrderText" rows="6" placeholder="Example: 2 trays of vegetarian snacks for 20 people on Saturday evening..."></textarea>
+              <label for="customOrderAmount">Estimated amount (optional)<input id="customOrderAmount" type="number" min="0" step="0.01" placeholder="0.00"></label>
+              <button type="button" class="btn btn-secondary" id="addCustomOrder">Add custom request to cart</button>
+              <small id="customOrderStatus" aria-live="polite"></small>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-cards reveal">
+          <a class="category-card" href="https://www.facebook.com/share/14NusKLjLYf/" target="_blank" rel="noopener"><span>🥣</span><h3>Tiffins</h3><p>Weekday home-style meals with dal, curry, rice, chapati and more.</p><b>See tiffin menu →</b></a>
+          <a class="category-card" href="https://www.facebook.com/share/16mLzNVAoX/" target="_blank" rel="noopener"><span>🍬</span><h3>Sweets</h3><p>Traditional vegetarian sweets for everyday cravings and special occasions.</p><b>See sweets menu →</b></a>
+          <a class="category-card" href="https://www.facebook.com/share/17XLFct67d/" target="_blank" rel="noopener"><span>🥟</span><h3>Snacks</h3><p>Fresh savoury favourites for tea time, gatherings and family orders.</p><b>See snacks menu →</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-warm" id="plans">
+      <div class="container">
+        <div class="section-head centered reveal">
+          <div class="eyebrow">20-DAY PACKAGE • MONDAY TO FRIDAY</div>
+          <h2>Simple tiffin plans for busy weeks</h2>
+          <p>Choose the portion that works for you. Sweet once a week and a Friday special are included in full meal packages.</p>
+        </div>
+
+        <div class="plan-toggle reveal" role="group" aria-label="Tiffin package type">
+          <button class="active" data-plan="full">Full meal packages</button>
+          <button data-plan="curry">Only curries</button>
+        </div>
+
+        <div class="plans-grid reveal" id="fullPlans">
+          <article class="plan-card">
+            <div class="plan-top"><span>Single</span><strong>$240</strong></div>
+            <p>Ideal for one person</p>
+            <ul><li>8 oz dal</li><li>8 oz curry</li><li>4 chapati</li><li>16 oz rice</li><li>Homemade curd</li><li>Sweet once a week</li><li>Friday special</li></ul>
+            <a href="#" data-tiffin data-package="full" data-size="single" data-price="240">Add Single plan to cart</a>
+          </article>
+          <article class="plan-card featured">
+            <div class="popular">Most Popular</div>
+            <div class="plan-top"><span>Couple</span><strong>$300</strong></div>
+            <p>Made for two</p>
+            <ul><li>12 oz dal</li><li>12 oz curry</li><li>4 chapati</li><li>16 oz rice</li><li>Homemade curd</li><li>Sweet once a week</li><li>Friday special</li></ul>
+            <a href="#" data-tiffin data-package="full" data-size="couple" data-price="300">Add Couple plan to cart</a>
+          </article>
+          <article class="plan-card">
+            <div class="plan-top"><span>Family</span><strong>$340</strong></div>
+            <p>More food for the family</p>
+            <ul><li>16 oz dal</li><li>16 oz curry</li><li>6 chapati</li><li>16 oz rice</li><li>Homemade curd</li><li>Sweet once a week</li><li>Friday special</li></ul>
+            <a href="#" data-tiffin data-package="full" data-size="family" data-price="340">Add Family plan to cart</a>
+          </article>
+        </div>
+
+        <div class="plans-grid hidden" id="curryPlans">
+          <article class="plan-card"><div class="plan-top"><span>Single</span><strong>$120</strong></div><p>Curry-only 20-day package</p><ul><li>8 oz dal</li><li>8 oz curry</li><li>Monday–Friday service</li></ul><a href="#" data-tiffin data-package="curry-only" data-size="single" data-price="120">Add this plan to cart</a></article>
+          <article class="plan-card featured"><div class="popular">Great for two</div><div class="plan-top"><span>Couple</span><strong>$160</strong></div><p>Curry-only 20-day package</p><ul><li>12 oz dal</li><li>12 oz curry</li><li>Monday–Friday service</li></ul><a href="#" data-tiffin data-package="curry-only" data-size="couple" data-price="160">Add this plan to cart</a></article>
+          <article class="plan-card"><div class="plan-top"><span>Family</span><strong>$200</strong></div><p>Curry-only 20-day package</p><ul><li>16 oz dal</li><li>16 oz curry</li><li>Monday–Friday service</li></ul><a href="#" data-tiffin data-package="curry-only" data-size="family" data-price="200">Add this plan to cart</a></article>
+        </div>
+
+        <p class="fine-print">Package details and availability can change. Please confirm the latest menu and delivery schedule with Sattwik Kitchen before ordering.</p>
+      </div>
+    </section>
+
+    <section class="section" id="weekday-menu">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">WEEKDAY ROTATION</div><h2>A different home-style menu every day</h2></div>
+          <p>A sample of the standard Monday–Friday menu shown by Sattwik Kitchen. Some dishes include a choice of two options.</p>
+        </div>
+        <div class="weekday-grid reveal">
+          <article><div class="day">MON</div><h3>Monday</h3><p>Palak Dal <em>or</em> Ridge Gourd Dal</p><p>Brinjal Masala <em>or</em> Cauliflower Curry</p><p>White Rice • 4 Chapati • Homemade Curd</p></article>
+          <article><div class="day">TUE</div><h3>Tuesday</h3><p>Tomato Dal <em>or</em> Kale Dal</p><p>Cabbage Chutney <em>or</em> Capsicum Masala</p><p>White Rice • 4 Chapati • Homemade Curd</p></article>
+          <article><div class="day">WED</div><h3>Wednesday</h3><p>Mango Dal <em>or</em> Dal Tadka</p><p>Potato/Bhindi Fry • Jeera Rice</p><p>4 Chapati • Homemade Curd • Sweet</p></article>
+          <article><div class="day">THU</div><h3>Thursday</h3><p>Sambar</p><p>Aloo Tomato Curry <em>or</em> Bhindi Curry</p><p>White Rice • 4 Chapati • Homemade Curd</p></article>
+          <article><div class="day">FRI</div><h3>Friday</h3><p>Chole Masala <em>or</em> Paneer Curry</p><p>Poori <em>or</em> Chapati</p><p>Veg Biryani <em>or</em> Fried Rice • Raita</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section catering" id="catering">
+      <div class="container catering-grid">
+        <div class="catering-copy reveal">
+          <div class="eyebrow">CUSTOM VEGETARIAN CATERING</div>
+          <h2>Planning a gathering? Let us take care of the food.</h2>
+          <p>Sattwik Kitchen offers vegetarian catering with customized menus for family events, celebrations, community gatherings and more.</p>
+          <div class="catering-points"><span>✓ Custom menu planning</span><span>✓ Vegetarian dishes</span><span>✓ Flexible quantities</span><span>✓ Price quoted by order</span></div>
+          <a class="btn btn-primary" href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27m%20interested%20in%20vegetarian%20catering.%20Please%20share%20menu%20and%20pricing%20options." target="_blank" rel="noopener">Request a catering quote</a>
+        </div>
+        <div class="catering-panel reveal">
+          <blockquote>“Tell us what you’re celebrating, how many guests you’re serving, and the dishes you have in mind — we’ll help customize your order.”</blockquote>
+          <div class="service-areas"><strong>Delivery areas</strong><p>Burnaby • New Westminster • Surrey • Delta</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy reveal">
+          <div class="eyebrow">READY TO ORDER?</div>
+          <h2>Send your request in under a minute</h2>
+          <p>Use this quick form to prepare a WhatsApp message. No account or online payment is required.</p>
+          <div class="contact-methods">
+            <a href="tel:+16725881282"><span>☎</span><div><small>Call</small><strong>+1 672-588-1282</strong></div></a>
+            <a href="mailto:sattwikkitchen@gmail.com"><span>✉</span><div><small>Email</small><strong>sattwikkitchen@gmail.com</strong></div></a>
+          </div>
+        </div>
+
+        <form class="order-form reveal" id="orderForm">
+          <label>Name<input type="text" id="name" placeholder="Your name" required></label>
+          <label>What are you interested in?
+            <select id="interest">
+              <option>Tiffin service</option>
+              <option>Pickles &amp; powders</option>
+              <option>Sweets</option>
+              <option>Snacks</option>
+              <option>Catering</option>
+              <option>Other / custom order</option>
+            </select>
+          </label>
+          <label>Your area<input type="text" id="area" placeholder="e.g. Surrey, Burnaby"></label>
+          <label>Order details<textarea id="details" rows="4" placeholder="Tell us what you need, quantity, date, etc."></textarea></label>
+          <button class="btn btn-primary" type="submit">Send request on WhatsApp</button>
+          <small class="form-note">This opens WhatsApp with your message ready to send.</small>
+        </form>
+      </div>
+    </section>
+
+    <section class="section flyer-section">
+      <div class="container flyer-grid">
+        <div class="reveal"><div class="eyebrow">ORIGINAL MENU FLYER</div><h2>See the current menu at a glance</h2><p>The flyer supplied by Sattwik Kitchen includes package information, weekday selections, pickles and powders.</p><a class="text-link" href="assets/sattwik-flyer.jpg" target="_blank">Open full-size flyer →</a></div>
+        <a class="flyer-preview reveal" href="assets/sattwik-flyer.jpg" target="_blank"><img src="assets/sattwik-flyer.jpg" alt="Sattwik Kitchen menu flyer"></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div><img class="footer-logo" src="https://res.cloudinary.com/spfurewl/image/upload/v1789330411/sattwik-logo.png" alt="Sattwik Kitchen logo" /><p>Pure vegetarian, home-style food made for the Metro Vancouver community.</p></div>
+      <div><strong>Menus</strong><a href="https://www.facebook.com/share/14NusKLjLYf/" target="_blank" rel="noopener">Tiffins</a><a href="https://www.facebook.com/share/16mLzNVAoX/" target="_blank" rel="noopener">Sweets</a><a href="https://www.facebook.com/share/17XLFct67d/" target="_blank" rel="noopener">Snacks</a><a href="https://www.facebook.com/marketplace/item/1599924425047230/" target="_blank" rel="noopener">Pickles &amp; Powders</a></div>
+      <div><strong>Follow</strong><a href="https://www.facebook.com/profile.php?id=61581806512999" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/sattwikkitchen/" target="_blank" rel="noopener">Instagram</a><a href="https://whatsapp.com/channel/0029VbCtjCo0lwgwiBOTxh3n" target="_blank" rel="noopener">WhatsApp Channel</a></div>
+      <div><strong>Contact</strong><a href="tel:+16725881282">+1 672-588-1282</a><a href="mailto:sattwikkitchen@gmail.com">sattwikkitchen@gmail.com</a><span>Burnaby • New Westminster • Surrey • Delta</span></div>
+    </div>
+    <div class="container footer-bottom"><span>© <span id="year"></span> Sattwik Kitchen</span><span>Pure Vegetarian • Food Like Home</span></div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener" aria-label="Order on WhatsApp">✆ <span>Order</span></a>
+
+  <div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart-drawer-head">
+      <div><span class="eyebrow">YOUR ENQUIRY</span><h2>Cart</h2></div>
+      <button class="cart-close" id="cartClose" type="button" aria-label="Close shopping cart">×</button>
+    </div>
+
+    <div class="cart-scroll">
+      <div class="cart-empty" id="cartEmpty">Your cart is empty. Use the + button on any pickle or powder to add it here.</div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="custom-cart-note hidden" id="customCartNote"></div>
+      <div class="cart-total"><span>Estimated subtotal</span><strong id="cartTotal">$0.00</strong></div>
+
+      <section class="customer-details" aria-labelledby="customerDetailsTitle">
+        <div class="customer-details-head">
+          <span class="eyebrow">CUSTOMER DETAILS</span>
+          <h3 id="customerDetailsTitle">Before you send the enquiry</h3>
+          <p>Please sign in before placing an order. Your order is saved with Sattwik Kitchen and sent to WhatsApp.</p>
+        </div>
+        <form id="customerDetailsForm" novalidate>
+          <div class="customer-fields">
+            <label>First name<input id="customerFirstName" type="text" autocomplete="given-name" required placeholder="First name" /></label>
+            <label>Last name<input id="customerLastName" type="text" autocomplete="family-name" required placeholder="Last name" /></label>
+            <label>Phone number<input id="customerPhone" type="tel" autocomplete="tel" required placeholder="+1 604 555 0123" /></label>
+            <label>Email<input id="customerEmail" type="email" autocomplete="email" required placeholder="name@example.com" /></label>
+            <label>Your area / location<input id="customerArea" type="text" autocomplete="address-level2" placeholder="e.g. Surrey, Burnaby" /></label>
+          </div>
+          <p class="customer-form-status" id="customerFormStatus" aria-live="polite">Add an item to the cart and complete the required fields to send your enquiry.</p>
+          <button class="btn btn-whatsapp" id="sendCartWhatsApp" type="submit" disabled>Send order &amp; open WhatsApp</button>
+          <small class="cart-note">Your order is stored securely with Sattwik Kitchen, then a WhatsApp message to +1 672-588-1282 is opened for you. No payment is taken on this website.</small>
+        </form>
+      </section>
+    </div>
+  </aside>
+
+  <div class="order-toast hidden" id="orderToast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Customer Sign In | Sattwik Kitchen</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="customer.css" />
+</head>
+<body class="customer-page">
+  <main class="customer-shell">
+    <a class="customer-brand" href="/"> <img src="https://res.cloudinary.com/spfurewl/image/upload/v1789330411/sattwik-logo.png" alt="Sattwik Kitchen" /></a>
+    <div class="customer-card">
+      <div class="customer-tabs"><button class="active" data-auth-tab="signin">Sign In</button><button data-auth-tab="signup">Create Account</button></div>
+      <section data-auth-panel="signin">
+        <p class="eyebrow">WELCOME BACK</p><h1>Sign in to place your order</h1><p class="muted">Your cart will stay saved while you sign in.</p>
+        <form id="signinForm" class="customer-form">
+          <label>Email<input id="signinEmail" type="email" required autocomplete="email" /></label>
+          <label>Password<input id="signinPassword" type="password" required autocomplete="current-password" /></label>
+          <button class="btn btn-primary" type="submit">Sign in</button>
+        </form>
+      </section>
+      <section class="hidden" data-auth-panel="signup">
+        <p class="eyebrow">NEW CUSTOMER</p><h1>Create your account</h1><p class="muted">Your details will be attached to every order you place.</p>
+        <form id="signupForm" class="customer-form">
+          <label>Full name<input id="signupName" type="text" required autocomplete="name" /></label>
+          <label>Email<input id="signupEmail" type="email" required autocomplete="email" /></label>
+          <label>Phone<input id="signupPhone" type="tel" required autocomplete="tel" /></label>
+          <label>Password<input id="signupPassword" type="password" required minlength="8" autocomplete="new-password" /></label>
+          <button class="btn btn-primary" type="submit">Create account</button>
+        </form>
+      </section>
+      <p id="authMessage" class="form-message" aria-live="polite"></p>
+      <a class="back-link" href="/">← Back to menu</a>
+    </div>
+  </main>
+  <script src="customer.js"></script>
+</body>
+</html>

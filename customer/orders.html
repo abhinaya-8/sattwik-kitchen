@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Orders | Sattwik Kitchen</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="customer.css" />
+</head>
+<body class="customer-page">
+  <main class="orders-shell">
+    <header class="orders-header">
+      <a class="customer-brand" href="/"><img src="https://res.cloudinary.com/spfurewl/image/upload/v1789330411/sattwik-logo.png" alt="Sattwik Kitchen" /></a>
+      <div class="orders-actions"><a class="btn btn-secondary" href="/">Back to menu</a><button class="btn btn-secondary" id="logoutButton">Log out</button></div>
+    </header>
+    <div class="orders-intro"><p class="eyebrow">CUSTOMER ACCOUNT</p><h1>My Orders</h1><p class="muted">Track each order as it moves from the kitchen to your door. Updates appear automatically.</p></div>
+    <div id="ordersMessage" class="form-message" aria-live="polite"></div>
+    <section id="ordersList" class="orders-list"></section>
+  </main>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="customer-orders.js"></script>
+</body>
+</html>

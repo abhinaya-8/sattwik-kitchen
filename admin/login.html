@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sattwik Kitchen Admin Login</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="login-page">
+  <div class="login-shell">
+    <div class="login-brand">
+      <img src="https://res.cloudinary.com/spfurewl/image/upload/v1789330411/sattwik-logo.png" alt="Sattwik Kitchen logo" />
+      <h1>Kitchen Admin</h1>
+    </div>
+
+    <form id="loginForm" class="login-form">
+      <label>
+        Email
+        <input id="email" type="email" required placeholder="Enter admin email" />
+      </label>
+      <label>
+        Password
+        <input id="password" type="password" required placeholder="Enter your password" />
+      </label>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+      <p id="loginMessage" class="form-message" aria-live="polite"></p>
+      <a class="auth-link" href="/admin/signup">Create admin account</a>
+    </form>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

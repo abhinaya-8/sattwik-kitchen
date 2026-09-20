@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sattwik Kitchen Dashboard</title>
+  <link rel="stylesheet" href="admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-body">
+  <aside class="sidebar">
+    <div class="brand-block">
+      <img src="https://res.cloudinary.com/spfurewl/image/upload/v1789330411/sattwik-logo.png" alt="Sattwik Kitchen" />
+      <p>Operations dashboard</p>
+    </div>
+
+    <nav class="nav-stack">
+      <button class="nav-item active" data-view="overview">Overview</button>
+      <button class="nav-item" data-view="orders">Orders</button>
+      <button class="nav-item" data-view="products">Products</button>
+      <button class="nav-item" data-view="customers">Customers</button>
+      <button class="nav-item" data-view="custom">Custom & Catering</button>
+      <button class="nav-item" data-view="exports">Exports</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div>
+        <small>Signed in as</small>
+        <strong id="adminName">Owner</strong>
+      </div>
+      <button id="logoutBtn" class="btn btn-secondary">Log out</button>
+    </div>
+  </aside>
+
+  <main class="dashboard-main">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Business analytics</p>
+        <h1>Dashboard</h1>
+      </div>
+      <div class="toolbar">
+        <label>
+          Status
+          <select id="statusFilter">
+            <option value="">All</option>
+            <option value="PENDING">Pending</option>
+            <option value="ACCEPTED">Accepted</option>
+            <option value="OUT_FOR_DELIVERY">Out for delivery</option>
+            <option value="DELIVERED">Delivered</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </label>
+        <label>
+          Type
+          <select id="typeFilter">
+            <option value="">All</option>
+            <option value="product">Product</option>
+            <option value="tiffin">Tiffin</option>
+            <option value="custom">Custom</option>
+            <option value="catering">Catering</option>
+          </select>
+        </label>
+        <label>
+          From
+          <input id="fromDate" type="date" />
+        </label>
+        <label>
+          To
+          <input id="toDate" type="date" />
+        </label>
+        <button id="refreshBtn" class="btn btn-primary">Refresh</button>
+      </div>
+    </header>
+
+    <section id="overviewView" class="view-panel active">
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="charts-grid">
+        <div class="panel card chart-panel large">
+          <div class="panel-head"><h3>Revenue trend</h3></div>
+          <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="panel card chart-panel">
+          <div class="panel-head"><h3>Order status</h3></div>
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+      <div class="split-grid">
+        <div class="panel card table-panel">
+          <div class="panel-head"><h3>Top products</h3></div>
+          <div id="topProductsTable" class="table-shell"></div>
+        </div>
+        <div class="panel card table-panel">
+          <div class="panel-head"><h3>Customer insights</h3></div>
+          <div id="customerInsights" class="table-shell"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ordersView" class="view-panel">
+      <div class="panel card">
+        <div class="panel-head"><h3>Orders</h3><button id="exportOrdersBtn" class="btn btn-secondary">Export CSV</button></div>
+        <div id="ordersTable" class="table-shell large"></div>
+      </div>
+    </section>
+
+    <section id="productsView" class="view-panel">
+      <div class="panel card">
+        <div class="panel-head"><h3>Products</h3><button id="newProductBtn" class="btn btn-secondary">Add product</button></div>
+        <div id="productsTable" class="table-shell large"></div>
+      </div>
+    </section>
+
+    <section id="customersView" class="view-panel">
+      <div class="panel card">
+        <div class="panel-head"><h3>Customers</h3></div>
+        <div id="customersTable" class="table-shell large"></div>
+      </div>
+    </section>
+
+    <section id="customView" class="view-panel">
+      <div class="panel card">
+        <div class="panel-head"><h3>Custom & Catering</h3></div>
+        <div id="customTable" class="table-shell large"></div>
+      </div>
+    </section>
+
+    <section id="exportsView" class="view-panel">
+      <div class="panel card">
+        <div class="panel-head"><h3>Export tools</h3></div>
+        <div class="export-grid">
+          <button class="btn btn-primary" data-export="orders">Download orders CSV</button>
+          <button class="btn btn-primary" data-export="products">Download product sales CSV</button>
+          <button class="btn btn-secondary" data-export="demo-clear">Clear demo records</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="admin.js"></script>
+</html>

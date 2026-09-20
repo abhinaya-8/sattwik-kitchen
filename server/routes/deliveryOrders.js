@@ -1,0 +1,53 @@
+const router = require('express').Router();
+const Order = require('../models/Order');
+const { deliveryAuthRequired } = require('../middleware/deliveryAuth');
+const { STATUS_TRANSITIONS } = require('../utils/constants');
+const { emitOrderUpdate } = require('../utils/orderEvents');
+
+router.get('/', deliveryAuthRequired, async (req, res) => {
+  const orders = await Order.find({
+    $or: [
+      { status: 'PENDING', deliveryMemberId: null },
+      { deliveryMemberId: req.deliveryMember._id, status: { $in: ['ACCEPTED', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED'] } }
+    ]
+  }).populate('customer', 'firstName lastName phone email address area').lean();
+
+  const priority = { OUT_FOR_DELIVERY: 0, ACCEPTED: 1, PENDING: 2, DELIVERED: 3, CANCELLED: 4 };
+  orders.sort((a, b) => {
+    const statusOrder = (priority[a.status] ?? 99) - (priority[b.status] ?? 99);
+    if (statusOrder !== 0) return statusOrder;
+    return new Date(b.updatedAt || b.acceptedAt || b.placedAt || b.createdAt) - new Date(a.updatedAt || a.acceptedAt || a.placedAt || a.createdAt);
+  });
+  res.json({ orders });
+});
+
+router.put('/:id/status', deliveryAuthRequired, async (req, res) => {
+  const requested = String(req.body?.status || '').toUpperCase();
+  if (!['ACCEPTED', 'OUT_FOR_DELIVERY', 'DELIVERED'].includes(requested)) {
+    return res.status(400).json({ message: 'Invalid delivery status.' });
+  }
+
+  let order;
+  if (requested === 'ACCEPTED') {
+    order = await Order.findOneAndUpdate(
+      { _id: req.params.id, status: 'PENDING', deliveryMemberId: null },
+      { $set: { status: 'ACCEPTED', deliveryMemberId: req.deliveryMember._id, acceptedAt: new Date() } },
+      { new: true, runValidators: true }
+    );
+    if (!order) return res.status(409).json({ message: 'Order is no longer available.' });
+  } else {
+    const currentStatus = requested === 'OUT_FOR_DELIVERY' ? 'ACCEPTED' : 'OUT_FOR_DELIVERY';
+    order = await Order.findOneAndUpdate(
+      { _id: req.params.id, status: currentStatus, deliveryMemberId: req.deliveryMember._id },
+      { $set: { status: requested, ...(requested === 'OUT_FOR_DELIVERY' ? { outForDeliveryAt: new Date() } : { deliveredAt: new Date() }) } },
+      { new: true, runValidators: true }
+    );
+    if (!order) return res.status(409).json({ message: 'Order status or assignment has changed. Refresh the dashboard.' });
+  }
+
+  const populated = await Order.findById(order._id).populate('customer', 'firstName lastName phone email address area').populate('deliveryMemberId', 'name phone email').lean();
+  emitOrderUpdate(req.app, populated);
+  res.json({ message: `Order marked as ${requested}`, order: populated });
+});
+
+module.exports = router;

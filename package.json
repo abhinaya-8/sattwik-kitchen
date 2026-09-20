@@ -1,0 +1,21 @@
+{
+  "name": "sattwik-kitchen",
+  "version": "1.0.0",
+  "description": "Full-stack ordering and business analytics system for Sattwik Kitchen",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js",
+    "seed": "node server/utils/seed.js",
+    "seed:admin": "node server/utils/createAdmin.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.0",
+    "socket.io": "^4.8.3"
+  }
+}
