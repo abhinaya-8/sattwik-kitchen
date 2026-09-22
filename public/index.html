@@ -1,10 +1,11 @@
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sattwik Kitchen | Pure Vegetarian Home-Style Food</title>
-  <meta name="description" content="Sattwik Kitchen serves pure vegetarian home-style food, tiffins, pickles, powders, catering and custom orders across Metro Vancouver." />
+  <meta name="description" content="Sattwik Kitchen serves pure vegetarian South Indian home-style tiffins, sweets, snacks, pickles, powders and custom catering across Burnaby, New Westminster, Surrey and Delta." />
   <meta name="theme-color" content="#3b1d0d" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -70,66 +71,1159 @@
         <a href="https://www.facebook.com/share/14NusKLjLYf/" target="_blank" rel="noopener"><span>🥣</span><strong>Tiffins</strong><small>View individual menu</small></a>
         <a href="https://www.facebook.com/share/16mLzNVAoX/" target="_blank" rel="noopener"><span>🍮</span><strong>Sweets</strong><small>View individual menu</small></a>
         <a href="https://www.facebook.com/share/17XLFct67d/" target="_blank" rel="noopener"><span>🥨</span><strong>Snacks</strong><small>View individual menu</small></a>
-        <a href="https://www.facebook.com/marketplace/item/1599924425047230/" target="_blank" rel="noopener"><span>🫙</span><strong>Pickles &amp; Powders</strong><small>View individual menu</small></a>
+        <a href="https://www.facebook.com/marketplace/item/1599924425047230/" target="_blank" rel="noopener"><span>🫙</span><strong>Pickles & Powders</strong><small>View individual menu</small></a>
       </div>
     </section>
 
-    <section class="section" id="menu">
-      <div class="container">
-        <div class="section-head reveal">
-          <div>
-            <div class="eyebrow">ORDER FROM THE MENU</div>
-            <h2>Pick your favourites</h2>
-          </div>
-          <p>Use the + and − buttons to change quantities. Your cart updates instantly — no separate add-to-cart step is needed.</p>
+
+<section class="section" id="menu">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">ORDER FROM THE MENU</div>
+        <h2>Pick your favourites</h2>
+      </div>
+      <p>Use the + and − buttons to change quantities. Your cart updates instantly — no separate “add to cart” step is needed.</p>
+    </div>
+
+    <div class="menu-toggle reveal" role="tablist" aria-label="Menu categories">
+
+    <button class="active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            data-menu-tab="pickles">
+        Pickles
+    </button>
+
+    <button type="button"
+            role="tab"
+            aria-selected="false"
+            data-menu-tab="powders">
+        Powders
+    </button>
+
+    <button type="button"
+            role="tab"
+            aria-selected="false"
+            data-menu-tab="breakfast">
+        Breakfast
+    </button>
+
+    <button type="button"
+            role="tab"
+            aria-selected="false"
+            data-menu-tab="sweets">
+        Sweets
+    </button>
+
+    <button type="button"
+            role="tab"
+            aria-selected="false"
+            data-menu-tab="snacks">
+        Snacks / Chat
+    </button>
+
+    <button type="button"
+            role="tab"
+            aria-selected="false"
+            data-menu-tab="custom">
+        Custom Order
+    </button>
+
+</div>
+
+    <div class="menu-tab-content reveal">
+      <div class="menu-tab-panel" id="picklesMenu" data-menu-panel="pickles" role="tabpanel">
+        <div class="menu-category-heading">
+          <span class="pill">House-made</span>
+          <h3>Pickles &amp; Pulihora Pulusu</h3>
+          <p>Fresh vegetarian favourites prepared in small batches.</p>
         </div>
 
-        <div class="menu-toggle reveal" role="tablist" aria-label="Menu categories">
-          <button class="active" type="button" role="tab" aria-selected="true" data-menu-tab="pickles">Pickles</button>
-          <button type="button" role="tab" aria-selected="false" data-menu-tab="powders">Powders</button>
-          <button type="button" role="tab" aria-selected="false" data-menu-tab="custom">Custom Order</button>
-        </div>
-
-        <div class="menu-tab-content reveal">
-          <div class="menu-tab-panel" id="picklesMenu" data-menu-panel="pickles" role="tabpanel">
-            <div class="menu-category-heading">
-              <span class="pill">House-made</span>
-              <h3>Pickles &amp; Pulihora Pulusu</h3>
-              <p>Fresh vegetarian favourites prepared in small batches.</p>
+        <div class="product-grid">
+          <article class="product-card" data-product="Tomato Pickle" data-price="8.99">
+            <div class="product-image-shell needs-image">
+              <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Tomato Pickle. -->
+              <img src="assets/product-placeholder.svg" alt="Tomato Pickle product image placeholder" />
             </div>
-            <div class="product-grid" id="picklesGrid"></div>
-          </div>
+            <div class="product-info"><h4>Tomato Pickle</h4><strong>$8.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Tomato Pickle quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Tomato Pickle quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
 
-          <div class="menu-tab-panel hidden" id="powdersMenu" data-menu-panel="powders" role="tabpanel">
-            <div class="menu-category-heading">
-              <span class="pill">Pantry favourites</span>
-              <h3>Powders</h3>
-              <p>Traditional flavour boosters made for easy everyday meals.</p>
+          <article class="product-card" data-product="Mango Pickle" data-price="9.99">
+            <div class="product-image-shell">
+              <!-- MANGO PICKLE WEB IMAGE: already connected. -->
+              <img src="https://res.cloudinary.com/spfurewl/image/upload/v1789330097/pickles.png" alt="Sattwik Kitchen Mango Pickle" />
             </div>
-            <div class="product-grid" id="powdersGrid"></div>
-          </div>
+            <div class="product-info"><h4>Mango Pickle</h4><strong>$9.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Mango Pickle quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Mango Pickle quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
 
-          <div class="menu-tab-panel hidden" id="customMenu" data-menu-panel="custom" role="tabpanel">
-            <div class="custom-order-card">
-              <span class="pill">Made for you</span>
-              <h3>Custom Order</h3>
-              <p>Need sweets, snacks, catering, a special quantity, or something not listed above? Add the details here and include them in the same enquiry.</p>
-              <label for="customOrderText">What would you like?</label>
-              <textarea id="customOrderText" rows="6" placeholder="Example: 2 trays of vegetarian snacks for 20 people on Saturday evening..."></textarea>
-              <label for="customOrderAmount">Estimated amount (optional)<input id="customOrderAmount" type="number" min="0" step="0.01" placeholder="0.00"></label>
-              <button type="button" class="btn btn-secondary" id="addCustomOrder">Add custom request to cart</button>
-              <small id="customOrderStatus" aria-live="polite"></small>
+          <article class="product-card" data-product="Raw Tamarind Pickle" data-price="9.99">
+            <div class="product-image-shell needs-image">
+              <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Raw Tamarind Pickle. -->
+              <img src="assets/product-placeholder.svg" alt="Raw Tamarind Pickle product image placeholder" />
             </div>
-          </div>
-        </div>
+            <div class="product-info"><h4>Raw Tamarind Pickle</h4><strong>$9.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Raw Tamarind Pickle quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Raw Tamarind Pickle quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
 
-        <div class="category-cards reveal">
-          <a class="category-card" href="https://www.facebook.com/share/14NusKLjLYf/" target="_blank" rel="noopener"><span>🥣</span><h3>Tiffins</h3><p>Weekday home-style meals with dal, curry, rice, chapati and more.</p><b>See tiffin menu →</b></a>
-          <a class="category-card" href="https://www.facebook.com/share/16mLzNVAoX/" target="_blank" rel="noopener"><span>🍬</span><h3>Sweets</h3><p>Traditional vegetarian sweets for everyday cravings and special occasions.</p><b>See sweets menu →</b></a>
-          <a class="category-card" href="https://www.facebook.com/share/17XLFct67d/" target="_blank" rel="noopener"><span>🥟</span><h3>Snacks</h3><p>Fresh savoury favourites for tea time, gatherings and family orders.</p><b>See snacks menu →</b></a>
+          <article class="product-card" data-product="Amla Pickle" data-price="11.99">
+            <div class="product-image-shell needs-image">
+              <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Amla Pickle. -->
+              <img src="assets/product-placeholder.svg" alt="Amla Pickle product image placeholder" />
+            </div>
+            <div class="product-info"><h4>Amla Pickle</h4><strong>$11.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Amla Pickle quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Amla Pickle quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
+
+          <article class="product-card" data-product="Gongura Pickle" data-price="11.99">
+            <div class="product-image-shell needs-image">
+              <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Gongura Pickle. -->
+              <img src="assets/product-placeholder.svg" alt="Gongura Pickle product image placeholder" />
+            </div>
+            <div class="product-info"><h4>Gongura Pickle</h4><strong>$11.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Gongura Pickle quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Gongura Pickle quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
+
+          <article class="product-card" data-product="Pulihora Pulusu" data-price="6.99">
+            <div class="product-image-shell needs-image">
+              <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Pulihora Pulusu. -->
+              <img src="assets/product-placeholder.svg" alt="Pulihora Pulusu product image placeholder" />
+            </div>
+            <div class="product-info"><h4>Pulihora Pulusu</h4><strong>$6.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Pulihora Pulusu quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Pulihora Pulusu quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
         </div>
       </div>
-    </section>
+
+      <div class="menu-tab-panel hidden" id="powdersMenu" data-menu-panel="powders" role="tabpanel">
+        <div class="menu-category-heading">
+          <span class="pill">Pantry favourites</span>
+          <h3>Powders</h3>
+          <p>Traditional flavour boosters made for easy everyday meals.</p>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card" data-product="Peanut Powder" data-price="6.99">
+            <div class="product-image-shell needs-image">
+              <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Peanut Powder. -->
+              <img src="assets/product-placeholder.svg" alt="Peanut Powder product image placeholder" />
+            </div>
+            <div class="product-info"><h4>Peanut Powder</h4><strong>$6.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Peanut Powder quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Peanut Powder quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
+
+          <article class="product-card" data-product="Flax Seed Powder" data-price="8.99">
+            <div class="product-image-shell needs-image">
+              <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Flax Seed Powder. -->
+              <img src="assets/product-placeholder.svg" alt="Flax Seed Powder product image placeholder" />
+            </div>
+            <div class="product-info"><h4>Flax Seed Powder</h4><strong>$8.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Flax Seed Powder quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Flax Seed Powder quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
+
+          <article class="product-card" data-product="Moringa Leaf Powder" data-price="11.99">
+            <div class="product-image-shell needs-image">
+              <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Moringa Leaf Powder. -->
+              <img src="assets/product-placeholder.svg" alt="Moringa Leaf Powder product image placeholder" />
+            </div>
+            <div class="product-info"><h4>Moringa Leaf Powder</h4><strong>$11.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Moringa Leaf Powder quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Moringa Leaf Powder quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
+
+          <article class="product-card" data-product="Curry Leaf Powder" data-price="11.99">
+            <div class="product-image-shell">
+              <!-- CURRY LEAF POWDER WEB IMAGE: already connected. -->
+              <img src="https://res.cloudinary.com/spfurewl/image/upload/v1789330130/powders.png" alt="Sattwik Kitchen Curry Leaf Powder" />
+            </div>
+            <div class="product-info"><h4>Curry Leaf Powder</h4><strong>$11.99</strong></div>
+            <div class="product-actions"><div class="qty-control"><button type="button" class="qty-minus" aria-label="Decrease Curry Leaf Powder quantity">−</button><span class="qty-value">0</span><button type="button" class="qty-plus" aria-label="Increase Curry Leaf Powder quantity">+</button></div><span class="auto-cart-note">Updates cart automatically</span></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="menu-tab-panel hidden" id="breakfastMenu" data-menu-panel="breakfast" role="tabpanel">
+
+    <div class="menu-category-heading">
+        <span class="pill">Hyderabad-style</span>
+        <h3>Breakfast Delights</h3>
+        <p>Authentic Hyderabad-style breakfast favourites prepared fresh.</p>
+    </div>
+
+    <div class="product-grid">
+
+        <!-- Dosa Platter -->
+        <article class="product-card" data-product="Dosa Platter" data-price="10.00">
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Dosa Platter product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Dosa Platter</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                2 Plain Dosas / 2 Masala Dosas / 2 Onion Dosas /
+                1 Paneer Butter Dosa with Chutney
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button" class="qty-minus"
+                        aria-label="Decrease Dosa Platter quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus"
+                        aria-label="Increase Dosa Platter quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+        </article>
+
+
+        <!-- Idli Platter -->
+        <article class="product-card" data-product="Idli Platter" data-price="10.00">
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Idli Platter product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Idli Platter</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                8 pieces with chutney
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button" class="qty-minus"
+                        aria-label="Decrease Idli Platter quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus"
+                        aria-label="Increase Idli Platter quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+        </article>
+
+
+        <!-- Chitti Idli -->
+        <article class="product-card" data-product="Chitti Idli Platter" data-price="10.00">
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Chitti Idli Platter product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Chitti Idli Platter</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                20 pieces with chutney
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button" class="qty-minus"
+                        aria-label="Decrease Chitti Idli Platter quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus"
+                        aria-label="Increase Chitti Idli Platter quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+        </article>
+
+
+        <!-- Mysore Bonda -->
+        <article class="product-card" data-product="Mysore Bonda Platter" data-price="10.00">
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Mysore Bonda Platter product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Mysore Bonda Platter</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                10 small bondas with chutney
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button" class="qty-minus"
+                        aria-label="Decrease Mysore Bonda Platter quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus"
+                        aria-label="Increase Mysore Bonda Platter quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+        </article>
+
+
+        <!-- Pongal -->
+        <article class="product-card" data-product="Pongal" data-price="10.00">
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Pongal product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Pongal</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                32 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button" class="qty-minus"
+                        aria-label="Decrease Pongal quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus"
+                        aria-label="Increase Pongal quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+        </article>
+
+
+        <!-- Wada -->
+        <article class="product-card" data-product="Wada" data-price="10.00">
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Wada product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Wada</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                4 pieces with chutney &amp; sambar.
+                Minimum 2 plates.
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button" class="qty-minus"
+                        aria-label="Decrease Wada quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus"
+                        aria-label="Increase Wada quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+        </article>
+
+
+        <!-- Gunta Ponganalu -->
+        <article class="product-card" data-product="Gunta Ponganalu" data-price="10.00">
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Gunta Ponganalu product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Gunta Ponganalu</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                10 pieces with chutney
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button" class="qty-minus"
+                        aria-label="Decrease Gunta Ponganalu quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus"
+                        aria-label="Increase Gunta Ponganalu quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+        </article>
+
+
+        <!-- Moong Dal Dosa -->
+        <article class="product-card" data-product="Moong Dal Dosa with Upma" data-price="10.00">
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Moong Dal Dosa with Upma product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Moong Dal Dosa with Upma</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                1 dosa with upma
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button" class="qty-minus"
+                        aria-label="Decrease Moong Dal Dosa quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus"
+                        aria-label="Increase Moong Dal Dosa quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+        </article>
+
+    </div>
+</div>
+
+<div class="menu-tab-panel hidden"
+     id="sweetsMenu"
+     data-menu-panel="sweets"
+     role="tabpanel">
+
+    <div class="menu-category-heading">
+        <span class="pill">Healthy Sweets</span>
+        <h3>Sattwik Kitchen's Sweets</h3>
+        <p>Authentic Indian-style sweets prepared with traditional flavours.</p>
+    </div>
+
+    <div class="product-grid">
+
+        <!-- Bobbatlu -->
+        <article class="product-card"
+                 data-product="Bobbatlu"
+                 data-price="2.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Bobbatlu product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Bobbatlu</h4>
+                <strong>$2.00</strong>
+            </div>
+
+            <p class="product-description">
+                Each piece — Minimum order 10 pieces
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Bobbatlu quantity">−</button>
+
+                    <span class="qty-value">0</span>
+
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Bobbatlu quantity">+</button>
+                </div>
+
+                <span class="auto-cart-note">
+                    Updates cart automatically
+                </span>
+            </div>
+
+        </article>
+
+
+        <!-- Gulab Jamoon -->
+        <article class="product-card"
+                 data-product="Gulab Jamoon"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Gulab Jamoon product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Gulab Jamoon</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                12 pieces
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Gulab Jamoon quantity">−</button>
+
+                    <span class="qty-value">0</span>
+
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Gulab Jamoon quantity">+</button>
+                </div>
+
+                <span class="auto-cart-note">
+                    Updates cart automatically
+                </span>
+            </div>
+
+        </article>
+
+
+        <!-- Double Ka Meeta -->
+        <article class="product-card"
+                 data-product="Double Ka Meeta"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Double Ka Meeta product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Double Ka Meeta</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                16 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Double Ka Meeta quantity">−</button>
+
+                    <span class="qty-value">0</span>
+
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Double Ka Meeta quantity">+</button>
+                </div>
+
+                <span class="auto-cart-note">
+                    Updates cart automatically
+                </span>
+            </div>
+
+        </article>
+
+
+        <!-- DryFruit Burfi -->
+        <article class="product-card"
+                 data-product="DryFruit Burfi"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="DryFruit Burfi product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>DryFruit Burfi</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                Without sugar — 8 pieces
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease DryFruit Burfi quantity">−</button>
+
+                    <span class="qty-value">0</span>
+
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase DryFruit Burfi quantity">+</button>
+                </div>
+
+                <span class="auto-cart-note">
+                    Updates cart automatically
+                </span>
+            </div>
+
+        </article>
+
+
+        <!-- Kesari Bath -->
+        <article class="product-card"
+                 data-product="Kesari Bath"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Kesari Bath product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Kesari Bath</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                16 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Kesari Bath quantity">−</button>
+
+                    <span class="qty-value">0</span>
+
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Kesari Bath quantity">+</button>
+                </div>
+
+                <span class="auto-cart-note">
+                    Updates cart automatically
+                </span>
+            </div>
+
+        </article>
+
+
+        <!-- Carrot Halwa -->
+        <article class="product-card"
+                 data-product="Carrot Halwa"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Carrot Halwa product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Carrot Halwa</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                16 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Carrot Halwa quantity">−</button>
+
+                    <span class="qty-value">0</span>
+
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Carrot Halwa quantity">+</button>
+                </div>
+
+                <span class="auto-cart-note">
+                    Updates cart automatically
+                </span>
+            </div>
+
+        </article>
+
+
+        <!-- Kaddu Kheer -->
+        <article class="product-card"
+                 data-product="Kaddu Kheer"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Kaddu Kheer product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Kaddu Kheer</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                Made with Bottle Gourd — 16 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Kaddu Kheer quantity">−</button>
+
+                    <span class="qty-value">0</span>
+
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Kaddu Kheer quantity">+</button>
+                </div>
+
+                <span class="auto-cart-note">
+                    Updates cart automatically
+                </span>
+            </div>
+
+        </article>
+
+
+        <!-- Arabian Delight -->
+        <article class="product-card"
+                 data-product="Arabian Delight"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Arabian Delight product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Arabian Delight</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                32 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Arabian Delight quantity">−</button>
+
+                    <span class="qty-value">0</span>
+
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Arabian Delight quantity">+</button>
+                </div>
+
+                <span class="auto-cart-note">
+                    Updates cart automatically
+                </span>
+            </div>
+
+        </article>
+
+
+        <!-- Rabdi -->
+        <article class="product-card"
+                 data-product="Rabdi"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Rabdi product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Rabdi</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                16 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Rabdi quantity">−</button>
+
+                    <span class="qty-value">0</span>
+
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Rabdi quantity">+</button>
+                </div>
+
+                <span class="auto-cart-note">
+                    Updates cart automatically
+                </span>
+            </div>
+
+        </article>
+
+    </div>
+
+    <p class="fine-print">
+        Minimum 2 plates/order for any item.
+    </p>
+
+</div>
+
+
+<div class="menu-tab-panel hidden"
+     id="snacksMenu"
+     data-menu-panel="snacks"
+     role="tabpanel">
+
+    <div class="menu-category-heading">
+        <span class="pill">Healthy Snacks / Chat</span>
+        <h3>Sattwik Kitchen's Snacks</h3>
+        <p>Authentic Indian-style snacks prepared fresh with traditional flavours.</p>
+    </div>
+
+    <div class="product-grid">
+
+        <!-- Gobi 65 -->
+        <article class="product-card"
+                 data-product="Gobi 65"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Gobi 65 product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Gobi 65</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                32 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Gobi 65 quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Gobi 65 quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+
+        </article>
+
+
+        <!-- Manchuria -->
+        <article class="product-card"
+                 data-product="Manchuria Dry/Wet"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Manchuria Dry or Wet product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Manchuria Dry / Wet</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                32 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Manchuria quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Manchuria quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+
+        </article>
+
+
+        <!-- Mirchi Bajji -->
+        <article class="product-card"
+                 data-product="Mirchi Bajji"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Mirchi Bajji product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Mirchi Bajji</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                4 pieces
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Mirchi Bajji quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Mirchi Bajji quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+
+        </article>
+
+
+        <!-- Aloo Bonda -->
+        <article class="product-card"
+                 data-product="Aloo Bonda"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Aloo Bonda product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Aloo Bonda</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                4 pieces
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Aloo Bonda quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Aloo Bonda quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+
+        </article>
+
+
+        <!-- Bread Bonda -->
+        <article class="product-card"
+                 data-product="Bread Bonda"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Bread Bonda product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Bread Bonda</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                3 pieces
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Bread Bonda quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Bread Bonda quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+
+        </article>
+
+
+        <!-- Veg / Paneer Puff -->
+        <article class="product-card"
+                 data-product="Veg/Paneer Puff"
+                 data-price="3.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Veg or Paneer Puff product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Veg / Paneer Puff</h4>
+                <strong>$3.00</strong>
+            </div>
+
+            <p class="product-description">
+                Each piece — Minimum 5 pieces
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Veg Paneer Puff quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Veg Paneer Puff quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+
+        </article>
+
+
+        <!-- Potato Bytes -->
+        <article class="product-card"
+                 data-product="Potato Bytes"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Potato Bytes product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Potato Bytes</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                25 pieces
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Potato Bytes quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Potato Bytes quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+
+        </article>
+
+
+        <!-- Pani Poori -->
+        <article class="product-card"
+                 data-product="Pani Poori"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Pani Poori product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Pani Poori</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                12 pieces
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Pani Poori quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Pani Poori quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+
+        </article>
+
+
+        <!-- Cutlet -->
+        <article class="product-card"
+                 data-product="Cutlet"
+                 data-price="10.00">
+
+            <div class="product-image-shell needs-image">
+                <img src="assets/product-placeholder.svg"
+                     alt="Cutlet product image placeholder" />
+            </div>
+
+            <div class="product-info">
+                <h4>Cutlet</h4>
+                <strong>$10.00</strong>
+            </div>
+
+            <p class="product-description">
+                16 oz
+            </p>
+
+            <div class="product-actions">
+                <div class="qty-control">
+                    <button type="button"
+                            class="qty-minus"
+                            aria-label="Decrease Cutlet quantity">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button"
+                            class="qty-plus"
+                            aria-label="Increase Cutlet quantity">+</button>
+                </div>
+                <span class="auto-cart-note">Updates cart automatically</span>
+            </div>
+
+        </article>
+
+    </div>
+
+    <p class="fine-print">
+        Minimum 2 plate orders for any item.
+        Veg / Paneer Puff requires a minimum of 5 pieces.
+    </p>
+
+</div>
+
+
+      <div class="menu-tab-panel hidden" id="customMenu" data-menu-panel="custom" role="tabpanel">
+        <div class="custom-order-card">
+          <span class="pill">Made for you</span>
+          <h3>Custom Order</h3>
+          <p>Need sweets, snacks, catering, a special quantity, or something not listed above? Add the details here and include them in the same WhatsApp enquiry.</p>
+          <label for="customOrderText">What would you like?</label>
+          <textarea id="customOrderText" rows="6" placeholder="Example: 2 trays of vegetarian snacks for 20 people on Saturday evening..."></textarea>
+          <button type="button" class="btn btn-secondary" id="addCustomOrder">Add custom request to cart</button>
+          <small id="customOrderStatus" aria-live="polite"></small>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
 
     <section class="section section-warm" id="plans">
       <div class="container">
@@ -149,27 +1243,27 @@
             <div class="plan-top"><span>Single</span><strong>$240</strong></div>
             <p>Ideal for one person</p>
             <ul><li>8 oz dal</li><li>8 oz curry</li><li>4 chapati</li><li>16 oz rice</li><li>Homemade curd</li><li>Sweet once a week</li><li>Friday special</li></ul>
-            <a href="#" data-tiffin data-package="full" data-size="single" data-price="240">Add Single plan to cart</a>
+            <a href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27m%20interested%20in%20the%20Single%20Tiffin%20Package%20%28%24240%29." target="_blank" rel="noopener">Choose Single</a>
           </article>
           <article class="plan-card featured">
             <div class="popular">Most Popular</div>
             <div class="plan-top"><span>Couple</span><strong>$300</strong></div>
             <p>Made for two</p>
             <ul><li>12 oz dal</li><li>12 oz curry</li><li>4 chapati</li><li>16 oz rice</li><li>Homemade curd</li><li>Sweet once a week</li><li>Friday special</li></ul>
-            <a href="#" data-tiffin data-package="full" data-size="couple" data-price="300">Add Couple plan to cart</a>
+            <a href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27m%20interested%20in%20the%20Couple%20Tiffin%20Package%20%28%24300%29." target="_blank" rel="noopener">Choose Couple</a>
           </article>
           <article class="plan-card">
             <div class="plan-top"><span>Family</span><strong>$340</strong></div>
             <p>More food for the family</p>
             <ul><li>16 oz dal</li><li>16 oz curry</li><li>6 chapati</li><li>16 oz rice</li><li>Homemade curd</li><li>Sweet once a week</li><li>Friday special</li></ul>
-            <a href="#" data-tiffin data-package="full" data-size="family" data-price="340">Add Family plan to cart</a>
+            <a href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27m%20interested%20in%20the%20Family%20Tiffin%20Package%20%28%24340%29." target="_blank" rel="noopener">Choose Family</a>
           </article>
         </div>
 
         <div class="plans-grid hidden" id="curryPlans">
-          <article class="plan-card"><div class="plan-top"><span>Single</span><strong>$120</strong></div><p>Curry-only 20-day package</p><ul><li>8 oz dal</li><li>8 oz curry</li><li>Monday–Friday service</li></ul><a href="#" data-tiffin data-package="curry-only" data-size="single" data-price="120">Add this plan to cart</a></article>
-          <article class="plan-card featured"><div class="popular">Great for two</div><div class="plan-top"><span>Couple</span><strong>$160</strong></div><p>Curry-only 20-day package</p><ul><li>12 oz dal</li><li>12 oz curry</li><li>Monday–Friday service</li></ul><a href="#" data-tiffin data-package="curry-only" data-size="couple" data-price="160">Add this plan to cart</a></article>
-          <article class="plan-card"><div class="plan-top"><span>Family</span><strong>$200</strong></div><p>Curry-only 20-day package</p><ul><li>16 oz dal</li><li>16 oz curry</li><li>Monday–Friday service</li></ul><a href="#" data-tiffin data-package="curry-only" data-size="family" data-price="200">Add this plan to cart</a></article>
+          <article class="plan-card"><div class="plan-top"><span>Single</span><strong>$120</strong></div><p>Curry-only 20-day package</p><ul><li>8 oz dal</li><li>8 oz curry</li><li>Monday–Friday service</li></ul><a href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27m%20interested%20in%20the%20Single%20Curry-Only%20Package%20%28%24120%29." target="_blank" rel="noopener">Ask about this plan</a></article>
+          <article class="plan-card featured"><div class="popular">Great for two</div><div class="plan-top"><span>Couple</span><strong>$160</strong></div><p>Curry-only 20-day package</p><ul><li>12 oz dal</li><li>12 oz curry</li><li>Monday–Friday service</li></ul><a href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27m%20interested%20in%20the%20Couple%20Curry-Only%20Package%20%28%24160%29." target="_blank" rel="noopener">Ask about this plan</a></article>
+          <article class="plan-card"><div class="plan-top"><span>Family</span><strong>$200</strong></div><p>Curry-only 20-day package</p><ul><li>16 oz dal</li><li>16 oz curry</li><li>Monday–Friday service</li></ul><a href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27m%20interested%20in%20the%20Family%20Curry-Only%20Package%20%28%24200%29." target="_blank" rel="noopener">Ask about this plan</a></article>
         </div>
 
         <p class="fine-print">Package details and availability can change. Please confirm the latest menu and delivery schedule with Sattwik Kitchen before ordering.</p>
@@ -225,7 +1319,7 @@
           <label>What are you interested in?
             <select id="interest">
               <option>Tiffin service</option>
-              <option>Pickles &amp; powders</option>
+              <option>Pickles & powders</option>
               <option>Sweets</option>
               <option>Snacks</option>
               <option>Catering</option>
@@ -251,7 +1345,7 @@
   <footer class="footer">
     <div class="container footer-grid">
       <div><img class="footer-logo" src="https://res.cloudinary.com/spfurewl/image/upload/v1789330411/sattwik-logo.png" alt="Sattwik Kitchen logo" /><p>Pure vegetarian, home-style food made for the Metro Vancouver community.</p></div>
-      <div><strong>Menus</strong><a href="https://www.facebook.com/share/14NusKLjLYf/" target="_blank" rel="noopener">Tiffins</a><a href="https://www.facebook.com/share/16mLzNVAoX/" target="_blank" rel="noopener">Sweets</a><a href="https://www.facebook.com/share/17XLFct67d/" target="_blank" rel="noopener">Snacks</a><a href="https://www.facebook.com/marketplace/item/1599924425047230/" target="_blank" rel="noopener">Pickles &amp; Powders</a></div>
+      <div><strong>Menus</strong><a href="https://www.facebook.com/share/14NusKLjLYf/" target="_blank" rel="noopener">Tiffins</a><a href="https://www.facebook.com/share/16mLzNVAoX/" target="_blank" rel="noopener">Sweets</a><a href="https://www.facebook.com/share/17XLFct67d/" target="_blank" rel="noopener">Snacks</a><a href="https://www.facebook.com/marketplace/item/1599924425047230/" target="_blank" rel="noopener">Pickles & Powders</a></div>
       <div><strong>Follow</strong><a href="https://www.facebook.com/profile.php?id=61581806512999" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/sattwikkitchen/" target="_blank" rel="noopener">Instagram</a><a href="https://whatsapp.com/channel/0029VbCtjCo0lwgwiBOTxh3n" target="_blank" rel="noopener">WhatsApp Channel</a></div>
       <div><strong>Contact</strong><a href="tel:+16725881282">+1 672-588-1282</a><a href="mailto:sattwikkitchen@gmail.com">sattwikkitchen@gmail.com</a><span>Burnaby • New Westminster • Surrey • Delta</span></div>
     </div>
@@ -260,42 +1354,42 @@
 
   <a class="whatsapp-float" href="https://wa.me/16725881282?text=Hi%20Sattwik%20Kitchen%2C%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener" aria-label="Order on WhatsApp">✆ <span>Order</span></a>
 
-  <div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
-  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
-    <div class="cart-drawer-head">
-      <div><span class="eyebrow">YOUR ENQUIRY</span><h2>Cart</h2></div>
-      <button class="cart-close" id="cartClose" type="button" aria-label="Close shopping cart">×</button>
-    </div>
 
-    <div class="cart-scroll">
-      <div class="cart-empty" id="cartEmpty">Your cart is empty. Use the + button on any pickle or powder to add it here.</div>
-      <div class="cart-items" id="cartItems"></div>
-      <div class="custom-cart-note hidden" id="customCartNote"></div>
-      <div class="cart-total"><span>Estimated subtotal</span><strong id="cartTotal">$0.00</strong></div>
+<div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="cart-drawer-head">
+    <div><span class="eyebrow">YOUR ENQUIRY</span><h2>Cart</h2></div>
+    <button class="cart-close" id="cartClose" type="button" aria-label="Close shopping cart">×</button>
+  </div>
 
-      <section class="customer-details" aria-labelledby="customerDetailsTitle">
-        <div class="customer-details-head">
-          <span class="eyebrow">CUSTOMER DETAILS</span>
-          <h3 id="customerDetailsTitle">Before you send the enquiry</h3>
-          <p>Please sign in before placing an order. Your order is saved with Sattwik Kitchen and sent to WhatsApp.</p>
+  <div class="cart-scroll">
+    <div class="cart-empty" id="cartEmpty">Your cart is empty. Use the + button on any pickle or powder to add it here.</div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="custom-cart-note hidden" id="customCartNote"></div>
+
+    <div class="cart-total"><span>Estimated subtotal</span><strong id="cartTotal">$0.00</strong></div>
+
+    <section class="customer-details" aria-labelledby="customerDetailsTitle">
+      <div class="customer-details-head">
+        <span class="eyebrow">CUSTOMER DETAILS</span>
+        <h3 id="customerDetailsTitle">Before you send the enquiry</h3>
+        <p>Please enter your contact details. They will be included with your order enquiry on WhatsApp.</p>
+      </div>
+      <form id="customerDetailsForm" novalidate>
+        <div class="customer-fields">
+          <label>First name<input id="customerFirstName" type="text" autocomplete="given-name" required placeholder="First name" /></label>
+          <label>Last name<input id="customerLastName" type="text" autocomplete="family-name" required placeholder="Last name" /></label>
+          <label>Phone number<input id="customerPhone" type="tel" autocomplete="tel" required placeholder="+1 604 555 0123" /></label>
+          <label>Email<input id="customerEmail" type="email" autocomplete="email" required placeholder="name@example.com" /></label>
         </div>
-        <form id="customerDetailsForm" novalidate>
-          <div class="customer-fields">
-            <label>First name<input id="customerFirstName" type="text" autocomplete="given-name" required placeholder="First name" /></label>
-            <label>Last name<input id="customerLastName" type="text" autocomplete="family-name" required placeholder="Last name" /></label>
-            <label>Phone number<input id="customerPhone" type="tel" autocomplete="tel" required placeholder="+1 604 555 0123" /></label>
-            <label>Email<input id="customerEmail" type="email" autocomplete="email" required placeholder="name@example.com" /></label>
-            <label>Your area / location<input id="customerArea" type="text" autocomplete="address-level2" placeholder="e.g. Surrey, Burnaby" /></label>
-          </div>
-          <p class="customer-form-status" id="customerFormStatus" aria-live="polite">Add an item to the cart and complete the required fields to send your enquiry.</p>
-          <button class="btn btn-whatsapp" id="sendCartWhatsApp" type="submit" disabled>Send order &amp; open WhatsApp</button>
-          <small class="cart-note">Your order is stored securely with Sattwik Kitchen, then a WhatsApp message to +1 672-588-1282 is opened for you. No payment is taken on this website.</small>
-        </form>
-      </section>
-    </div>
-  </aside>
+        <p class="customer-form-status" id="customerFormStatus" aria-live="polite">Add an item to the cart and complete all four fields to send your enquiry.</p>
+        <button class="btn btn-whatsapp" id="sendCartWhatsApp" type="submit" disabled>Send enquiry using WhatsApp</button>
+        <small class="cart-note">Your order and contact details will be placed into a WhatsApp message to +1 672-588-1282. No payment is taken on this website.</small>
+      </form>
+    </section>
+  </div>
+</aside>
 
-  <div class="order-toast hidden" id="orderToast" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
 </html>
