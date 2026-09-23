@@ -21,6 +21,8 @@
       <button class="nav-item" data-view="customers">Customers</button>
       <button class="nav-item" data-view="custom">Custom & Catering</button>
       <button class="nav-item" data-view="exports">Exports</button>
+      <button class="nav-item" data-view="admins">Add Admin</button>
+      <button class="nav-item" data-view="security">Change Password</button>
     </nav>
 
     <div class="sidebar-footer">
@@ -132,6 +134,57 @@
           <button class="btn btn-primary" data-export="products">Download product sales CSV</button>
           <button class="btn btn-secondary" data-export="demo-clear">Clear demo records</button>
         </div>
+      </div>
+    </section>
+    <section id="adminsView" class="view-panel">
+      <div class="panel card">
+        <div class="panel-head"><h3>Add Admin</h3></div>
+        <form id="addAdminForm" class="stacked-form" novalidate>
+          <label>
+            Admin Name
+            <input id="newAdminName" type="text" required autocomplete="off" placeholder="Full name" />
+          </label>
+          <label>
+            Email
+            <input id="newAdminEmail" type="email" required autocomplete="off" placeholder="admin@example.com" />
+          </label>
+          <label>
+            Password
+            <input id="newAdminPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters" />
+          </label>
+          <label>
+            Confirm Password
+            <input id="newAdminConfirmPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="Re-enter password" />
+          </label>
+          <button type="submit" class="btn btn-primary">Create admin</button>
+          <p id="addAdminMessage" class="form-message" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="panel card">
+        <div class="panel-head"><h3>Existing admins</h3></div>
+        <div id="adminsTable" class="table-shell"></div>
+      </div>
+    </section>
+
+    <section id="securityView" class="view-panel">
+      <div class="panel card">
+        <div class="panel-head"><h3>Change Password</h3></div>
+        <form id="changePasswordForm" class="stacked-form" novalidate>
+          <label>
+            Current Password
+            <input id="currentPassword" type="password" required autocomplete="current-password" />
+          </label>
+          <label>
+            New Password
+            <input id="newPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters" />
+          </label>
+          <label>
+            Confirm New Password
+            <input id="confirmNewPassword" type="password" required minlength="8" autocomplete="new-password" />
+          </label>
+          <button type="submit" class="btn btn-primary">Update password</button>
+          <p id="changePasswordMessage" class="form-message" aria-live="polite"></p>
+        </form>
       </div>
     </section>
   </main>

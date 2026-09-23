@@ -6,32 +6,14 @@ const loginForm = document.getElementById('loginForm');
 const loginMessage = document.getElementById('loginMessage');
 const adminName = document.getElementById('adminName');
 
-document.getElementById('adminSignupForm')?.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const message = document.getElementById('adminSignupMessage');
-  const password = document.getElementById('adminPasswordInput').value;
-  const confirmPassword = document.getElementById('adminConfirmPasswordInput').value;
-  if (password !== confirmPassword) {
-    message.textContent = 'Passwords do not match.';
-    return;
-  }
-  message.textContent = 'Creating account...';
-  try {
-    const data = await api('/auth/signup', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: document.getElementById('adminNameInput').value.trim(),
-        email: document.getElementById('adminEmailInput').value.trim(),
-        password,
-        confirmPassword
-      })
-    });
-    message.textContent = data.message;
-    setTimeout(() => { window.location.href = '/admin/login.html'; }, 700);
-  } catch (error) {
-    message.textContent = error.message || 'Signup failed';
-  }
-});
+const MIN_PASSWORD_LENGTH = 8;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function setMessage(element, text, isSuccess = false) {
+  if (!element) return;
+  element.textContent = text;
+  element.classList.toggle('success', Boolean(isSuccess));
+}
 
 function getAuthHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {};
@@ -131,6 +113,9 @@ if (window.location.pathname.endsWith('/dashboard.html')) {
     button.addEventListener('click', () => exportData(button.dataset.export));
   });
 
+  document.getElementById('addAdminForm')?.addEventListener('submit', handleAddAdmin);
+  document.getElementById('changePasswordForm')?.addEventListener('submit', handleChangePassword);
+
   document.getElementById('statusFilter')?.addEventListener('change', loadDashboardData);
   document.getElementById('typeFilter')?.addEventListener('change', loadDashboardData);
   document.getElementById('fromDate')?.addEventListener('change', loadDashboardData);
@@ -185,6 +170,7 @@ async function loadDashboardData() {
     renderOrdersTable();
     renderProductsTable();
     await renderCustomersTable();
+    await renderAdminsTable();
     renderExports();
   } catch (error) {
     console.error(error);
@@ -405,6 +391,88 @@ function renderCustomTable(custom) {
       ${rows.length ? `<tfoot><tr><td colspan="4"><strong>Total</strong></td><td><strong>${currency(totalAmount)}</strong></td></tr></tfoot>` : ''}
     </table>
   `;
+}
+
+async function handleAddAdmin(event) {
+  event.preventDefault();
+  const message = document.getElementById('addAdminMessage');
+  const name = document.getElementById('newAdminName').value.trim();
+  const email = document.getElementById('newAdminEmail').value.trim();
+  const password = document.getElementById('newAdminPassword').value;
+  const confirmPassword = document.getElementById('newAdminConfirmPassword').value;
+
+  if (!name) return setMessage(message, 'Admin name is required.');
+  if (!EMAIL_PATTERN.test(email)) return setMessage(message, 'Enter a valid email address.');
+  if (password.length < MIN_PASSWORD_LENGTH) return setMessage(message, `Password must be at least ${MIN_PASSWORD_LENGTH} characters.`);
+  if (password !== confirmPassword) return setMessage(message, 'Passwords do not match.');
+
+  setMessage(message, 'Creating admin...');
+  try {
+    const data = await api('/auth/admins', {
+      method: 'POST',
+      body: JSON.stringify({ name, email, password, confirmPassword })
+    });
+    setMessage(message, data.message || 'Admin created successfully', true);
+    event.target.reset();
+    await renderAdminsTable();
+  } catch (error) {
+    setMessage(message, error.message || 'Could not create the admin account');
+  }
+}
+
+async function handleChangePassword(event) {
+  event.preventDefault();
+  const message = document.getElementById('changePasswordMessage');
+  const currentPassword = document.getElementById('currentPassword').value;
+  const newPassword = document.getElementById('newPassword').value;
+  const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+  if (!currentPassword) return setMessage(message, 'Current password is required.');
+  if (newPassword.length < MIN_PASSWORD_LENGTH) return setMessage(message, `New password must be at least ${MIN_PASSWORD_LENGTH} characters.`);
+  if (newPassword !== confirmPassword) return setMessage(message, 'New passwords do not match.');
+
+  setMessage(message, 'Updating password...');
+  try {
+    const data = await api('/auth/change-password', {
+      method: 'POST',
+      body: JSON.stringify({ currentPassword, newPassword, confirmPassword })
+    });
+    event.target.reset();
+    setMessage(message, data.message || 'Password updated. Please sign in again.', true);
+    if (data.reauthRequired !== false) {
+      localStorage.removeItem('sattwikToken');
+      token = '';
+      setTimeout(() => { window.location.href = '/admin/login.html'; }, 1200);
+    }
+  } catch (error) {
+    setMessage(message, error.message || 'Could not update the password');
+  }
+}
+
+async function renderAdminsTable() {
+  const table = document.getElementById('adminsTable');
+  if (!table) return;
+  try {
+    const data = await api('/auth/admins');
+    const admins = data.admins || [];
+    table.innerHTML = `
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Created</th></tr></thead>
+        <tbody>
+          ${admins.map((admin) => `
+            <tr>
+              <td>${admin.name || '—'}</td>
+              <td>${admin.email}</td>
+              <td>${admin.role}</td>
+              <td>${dateLabel(admin.createdAt)}</td>
+            </tr>
+          `).join('') || '<tr><td colspan="4">No admins found</td></tr>'}
+        </tbody>
+      </table>
+    `;
+  } catch (error) {
+    table.innerHTML = `<p class="form-message">${error.message || 'Could not load admins'}</p>`;
+  }
 }
 
 function renderExports() {
