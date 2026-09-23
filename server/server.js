@@ -7,6 +7,9 @@ const jwt = require('jsonwebtoken');
 const { Server } = require('socket.io');
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
+const { wrapRouter } = require('./utils/asyncRoutes');
+const ensurePrimaryAdmin = require('./utils/ensurePrimaryAdmin');
+const { authRequired } = require('./middleware/auth');
 
 const allowed = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map((s) => s.trim()) : true;
 const app = express();
@@ -22,7 +25,7 @@ app.use(express.json({ limit: '1mb' }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/admin', express.static(path.join(__dirname, '..', 'admin')));
 app.get('/admin', (req, res) => res.redirect('/admin/login.html'));
-app.get('/admin/signup', (req, res) => res.sendFile(path.join(__dirname, '..', 'admin', 'signup.html')));
+app.get('/admin/signup', (req, res) => res.redirect('/admin/login.html'));
 app.use('/customer', express.static(path.join(__dirname, '..', 'customer')));
 app.get('/customer/login', (req, res) => res.sendFile(path.join(__dirname, '..', 'customer', 'login.html')));
 app.get('/customer/orders', (req, res) => res.sendFile(path.join(__dirname, '..', 'customer', 'orders.html')));
@@ -31,18 +34,18 @@ app.get('/delivery/login', (req, res) => res.sendFile(path.join(__dirname, '..',
 app.get('/delivery/signup', (req, res) => res.sendFile(path.join(__dirname, '..', 'delivery', 'signup.html')));
 app.get('/delivery/dashboard', (req, res) => res.sendFile(path.join(__dirname, '..', 'delivery', 'dashboard.html')));
 
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/customer-auth', require('./routes/customerAuth'));
-app.use('/api/customer-orders', require('./routes/customerOrders'));
-app.use('/api/delivery-auth', require('./routes/deliveryAuth'));
-app.use('/api/delivery-orders', require('./routes/deliveryOrders'));
-app.use('/api/products', require('./routes/products'));
-app.use('/api/orders', require('./routes/orders'));
-app.use('/api/customers', require('./routes/customers'));
-app.use('/api/analytics', require('./routes/analytics'));
-app.use('/api/export', require('./routes/export'));
+app.use('/api/auth', wrapRouter(require('./routes/auth')));
+app.use('/api/customer-auth', wrapRouter(require('./routes/customerAuth')));
+app.use('/api/customer-orders', wrapRouter(require('./routes/customerOrders')));
+app.use('/api/delivery-auth', wrapRouter(require('./routes/deliveryAuth')));
+app.use('/api/delivery-orders', wrapRouter(require('./routes/deliveryOrders')));
+app.use('/api/products', wrapRouter(require('./routes/products')));
+app.use('/api/orders', wrapRouter(require('./routes/orders')));
+app.use('/api/customers', wrapRouter(require('./routes/customers')));
+app.use('/api/analytics', wrapRouter(require('./routes/analytics')));
+app.use('/api/export', wrapRouter(require('./routes/export')));
 
-app.post('/api/clear-demo', async (req, res) => {
+app.post('/api/clear-demo', authRequired, async (req, res) => {
   try {
     const Order = require('./models/Order');
     const Customer = require('./models/Customer');
@@ -77,6 +80,11 @@ io.on('connection', (socket) => {
   }
 });
 
+process.on('unhandledRejection', (reason) => {
+  console.error('[sattwik] unhandled rejection:', reason instanceof Error ? reason.message : reason);
+});
+
 httpServer.listen(PORT, async () => {
   console.log(`Sattwik Kitchen server running on http://localhost:${PORT}`);
+  await ensurePrimaryAdmin();
 });
