@@ -4,6 +4,8 @@ const adminSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   passwordHash: { type: String, required: true },
   name: { type: String, default: 'Admin' },
+  passwordChangedAt: { type: Date },
+  tokenVersion: { type: Number, default: 0 },
   role: { type: String, enum: ['admin', 'superadmin'], default: 'admin' }
 }, { timestamps: true });
 

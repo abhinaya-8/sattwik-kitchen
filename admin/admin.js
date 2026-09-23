@@ -6,32 +6,14 @@ const loginForm = document.getElementById('loginForm');
 const loginMessage = document.getElementById('loginMessage');
 const adminName = document.getElementById('adminName');
 
-document.getElementById('adminSignupForm')?.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const message = document.getElementById('adminSignupMessage');
-  const password = document.getElementById('adminPasswordInput').value;
-  const confirmPassword = document.getElementById('adminConfirmPasswordInput').value;
-  if (password !== confirmPassword) {
-    message.textContent = 'Passwords do not match.';
-    return;
-  }
-  message.textContent = 'Creating account...';
-  try {
-    const data = await api('/auth/signup', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: document.getElementById('adminNameInput').value.trim(),
-        email: document.getElementById('adminEmailInput').value.trim(),
-        password,
-        confirmPassword
-      })
-    });
-    message.textContent = data.message;
-    setTimeout(() => { window.location.href = '/admin/login.html'; }, 700);
-  } catch (error) {
-    message.textContent = error.message || 'Signup failed';
-  }
-});
+const MIN_PASSWORD_LENGTH = 8;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ 
+function setMessage(element, text, isSuccess = false) {
+  if (!element) return;
+  element.textContent = text;
+  element.classList.toggle('success', Boolean(isSuccess));
+}
 
 function getAuthHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {};
@@ -457,6 +439,210 @@ if (document.getElementById('newProductBtn')) {
       await loadDashboardData();
     } catch (error) {
       alert(error.message || 'Could not add product');
+    }
+  });
+}
+
+
+// ===============================
+// ADMIN MANAGEMENT
+// ===============================
+
+const addAdminForm = document.getElementById('addAdminForm');
+const addAdminMessage = document.getElementById('addAdminMessage');
+
+if (addAdminForm) {
+  addAdminForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById('newAdminName').value.trim();
+    const email = document.getElementById('newAdminEmail').value.trim();
+    const password = document.getElementById('newAdminPassword').value;
+    const confirmPassword = document.getElementById('newAdminConfirmPassword').value;
+
+    setMessage(addAdminMessage, 'Creating admin...');
+
+    if (!name || !email || !password || !confirmPassword) {
+      setMessage(addAdminMessage, 'Please fill in all fields.');
+      return;
+    }
+
+    if (!EMAIL_PATTERN.test(email)) {
+      setMessage(addAdminMessage, 'Enter a valid email address.');
+      return;
+    }
+
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      setMessage(
+        addAdminMessage,
+        `Password must be at least ${MIN_PASSWORD_LENGTH} characters.`
+      );
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setMessage(addAdminMessage, 'Passwords do not match.');
+      return;
+    }
+
+    try {
+      const result = await api('/auth/admins', {
+        method: 'POST',
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          confirmPassword
+        })
+      });
+
+      setMessage(
+        addAdminMessage,
+        result.message || 'Admin created successfully.',
+        true
+      );
+
+      addAdminForm.reset();
+
+      await loadAdmins();
+    } catch (error) {
+      console.error('Add admin failed:', error);
+      setMessage(
+        addAdminMessage,
+        error.message || 'Could not create admin.'
+      );
+    }
+  });
+}
+
+
+// ===============================
+// LOAD EXISTING ADMINS
+// ===============================
+
+async function loadAdmins() {
+  const table = document.getElementById('adminsTable');
+  if (!table) return;
+
+  try {
+    const data = await api('/auth/admins');
+    const admins = data.admins || [];
+
+    table.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${
+            admins.map((admin) => `
+              <tr>
+                <td>${admin.name || '—'}</td>
+                <td>${admin.email || '—'}</td>
+                <td>${admin.role || 'admin'}</td>
+                <td>${dateLabel(admin.createdAt)}</td>
+              </tr>
+            `).join('')
+            || '<tr><td colspan="4">No admins found</td></tr>'
+          }
+        </tbody>
+      </table>
+    `;
+  } catch (error) {
+    console.error('Could not load admins:', error);
+    table.innerHTML = `
+      <p class="form-message">
+        ${error.message || 'Could not load admins.'}
+      </p>
+    `;
+  }
+}
+
+
+// Load admins when dashboard opens
+if (window.location.pathname.endsWith('/dashboard.html')) {
+  loadAdmins();
+}
+
+
+
+// ===============================
+// CHANGE PASSWORD
+// ===============================
+
+const changePasswordForm = document.getElementById('changePasswordForm');
+const changePasswordMessage = document.getElementById('changePasswordMessage');
+
+if (changePasswordForm) {
+  changePasswordForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const currentPassword =
+      document.getElementById('currentPassword').value;
+
+    const newPassword =
+      document.getElementById('newPassword').value;
+
+    const confirmPassword =
+      document.getElementById('confirmNewPassword').value;
+
+    setMessage(changePasswordMessage, 'Updating password...');
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setMessage(changePasswordMessage, 'Please fill in all fields.');
+      return;
+    }
+
+    if (newPassword.length < MIN_PASSWORD_LENGTH) {
+      setMessage(
+        changePasswordMessage,
+        `New password must be at least ${MIN_PASSWORD_LENGTH} characters.`
+      );
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setMessage(changePasswordMessage, 'New passwords do not match.');
+      return;
+    }
+
+    try {
+      const result = await api('/auth/change-password', {
+        method: 'POST',
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+          confirmPassword
+        })
+      });
+
+      setMessage(
+        changePasswordMessage,
+        result.message || 'Password updated successfully.',
+        true
+      );
+
+      changePasswordForm.reset();
+
+      if (result.reauthRequired) {
+        setTimeout(() => {
+          localStorage.removeItem('sattwikToken');
+          token = '';
+          window.location.href = '/admin/login.html';
+        }, 1500);
+      }
+
+    } catch (error) {
+      console.error('Change password failed:', error);
+      setMessage(
+        changePasswordMessage,
+        error.message || 'Could not update password.'
+      );
     }
   });
 }
