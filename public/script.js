@@ -156,72 +156,234 @@ document.querySelectorAll('.nav-links a').forEach((link) => link.addEventListene
 
 const menuTabs = document.querySelectorAll('[data-menu-tab]');
 const menuPanels = document.querySelectorAll('[data-menu-panel]');
-menuTabs.forEach((button) => button.addEventListener('click', () => {
-  const target = button.dataset.menuTab;
-  menuTabs.forEach((tab) => {
-    const active = tab === button;
-    tab.classList.toggle('active', active);
-    tab.setAttribute('aria-selected', active ? 'true' : 'false');
-  });
-  menuPanels.forEach((panel) => panel.classList.toggle('hidden', panel.dataset.menuPanel !== target));
-}));
 
-function renderProductTiles(products) {
-  const picklesGrid = document.getElementById('picklesGrid');
-  const powdersGrid = document.getElementById('powdersGrid');
-  if (!picklesGrid || !powdersGrid) return;
-  picklesGrid.innerHTML = '';
-  powdersGrid.innerHTML = '';
+// Use event delegation on the menu-toggle so dynamically added tab buttons are
+// handled automatically — no need to re-bind when new categories appear.
+const menuToggleEl = document.querySelector('.menu-toggle');
+if (menuToggleEl) {
+  menuToggleEl.addEventListener('click', (e) => {
+    const button = e.target.closest('[data-menu-tab]');
+    if (!button) return;
+    const target = button.dataset.menuTab;
 
-  const categories = {
-    Pickles: picklesGrid,
-    Powders: powdersGrid
-  };
+    // Update all tab buttons (static + dynamic)
+    document.querySelectorAll('[data-menu-tab]').forEach((tab) => {
+      const active = tab === button;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
 
-  products.forEach((product) => {
-    const col = categories[product.category];
-    if (!col) return;
-
-    const card = document.createElement('article');
-    card.className = 'product-card';
-    card.dataset.productId = product._id;
-    card.dataset.name = product.name;
-    card.dataset.price = String(product.price);
-    card.dataset.category = product.category;
-
-    const qty = cart.get(product.name)?.qty || 0;
-    if (qty > 0) card.classList.add('selected');
-
-    card.innerHTML = `
-      <div class="product-image-shell">
-        <img src="${product.image || 'assets/product-placeholder.svg'}" alt="${product.name}" />
-      </div>
-      <div class="product-info">
-        <h4>${product.name}</h4>
-        <strong>${money(product.price)}</strong>
-      </div>
-      <div class="product-actions">
-        <div class="qty-control">
-          <button type="button" class="qty-minus" aria-label="Decrease ${product.name} quantity">−</button>
-          <span class="qty-value">${qty}</span>
-          <button type="button" class="qty-plus" aria-label="Increase ${product.name} quantity">+</button>
-        </div>
-        <span class="auto-cart-note">Updates cart automatically</span>
-      </div>
-    `;
-
-    const minus = card.querySelector('.qty-minus');
-    const plus = card.querySelector('.qty-plus');
-    minus.addEventListener('click', () => updateQty(product.name, Number(product.price), (cart.get(product.name)?.qty || 0) - 1));
-    plus.addEventListener('click', () => updateQty(product.name, Number(product.price), (cart.get(product.name)?.qty || 0) + 1));
-    col.appendChild(card);
+    // Update all panels (static + dynamic)
+    document.querySelectorAll('[data-menu-panel]').forEach((panel) => {
+      panel.classList.toggle('hidden', panel.dataset.menuPanel !== target);
+    });
   });
 }
 
-function updateQty(name, price, nextQty) {
+function renderProductTiles(products) {
+  // Clear all existing product grids
+  const picklesGrid = document.getElementById('picklesGrid');
+  const powdersGrid = document.getElementById('powdersGrid');
+  const tiffinsGrid = document.getElementById('tiffinsGrid');
+  const sweetsGrid = document.getElementById('sweetsGrid');
+  const snacksGrid = document.getElementById('snacksGrid');
+  const dynamicCategories = document.getElementById('dynamicCategories');
+  
+  if (picklesGrid) picklesGrid.innerHTML = '';
+  if (powdersGrid) powdersGrid.innerHTML = '';
+  if (tiffinsGrid) tiffinsGrid.innerHTML = '';
+  if (sweetsGrid) sweetsGrid.innerHTML = '';
+  if (snacksGrid) snacksGrid.innerHTML = '';
+
+  // Remove existing dynamic panels and their corresponding tab buttons cleanly.
+  // Any tab button inside .menu-toggle that doesn't match a known static key is dynamic.
+  const STATIC_TABS = new Set(['pickles', 'powders', 'breakfast', 'sweets', 'snacks', 'custom']);
+  if (dynamicCategories) dynamicCategories.innerHTML = '';
+  const menuToggle = document.querySelector('.menu-toggle');
+  if (menuToggle) {
+    menuToggle.querySelectorAll('[data-menu-tab]').forEach((btn) => {
+      if (!STATIC_TABS.has(btn.dataset.menuTab)) btn.remove();
+    });
+  }
+
+  // Group products by category
+  const productsByCategory = {};
+  products.forEach((product) => {
+    if (!productsByCategory[product.category]) {
+      productsByCategory[product.category] = [];
+    }
+    productsByCategory[product.category].push(product);
+  });
+
+  // Define existing category mappings (exact match on the category string stored in DB)
+  const existingCategories = {
+    'Pickles': { grid: picklesGrid, tab: 'pickles' },
+    'Powders': { grid: powdersGrid, tab: 'powders' },
+    'Tiffins': { grid: tiffinsGrid, tab: 'breakfast' },
+    'Breakfast/Tiffins': { grid: tiffinsGrid, tab: 'breakfast' },
+    'Sweets': { grid: sweetsGrid, tab: 'sweets' },
+    'Snacks': { grid: snacksGrid, tab: 'snacks' },
+    'Snacks / Chat': { grid: snacksGrid, tab: 'snacks' }
+  };
+
+  // Render products for each category
+  Object.keys(productsByCategory).forEach((category) => {
+    const categoryProducts = productsByCategory[category];
+    const existing = existingCategories[category];
+    
+    if (existing && existing.grid) {
+      // Render into the existing static grid — never sent to Pickles by mistake
+      renderProductsToGrid(categoryProducts, existing.grid);
+    } else {
+      // Unknown category: create a completely separate section with its own tab
+      createDynamicCategorySection(category, categoryProducts);
+    }
+  });
+}
+
+function renderProductsToGrid(products, gridElement) {
+  if (!gridElement) return;
+
+  products.forEach((product) => {
+    const card = createProductCard(product);
+    gridElement.appendChild(card);
+  });
+}
+
+function createDynamicCategorySection(category, products) {
+  const dynamicCategories = document.getElementById('dynamicCategories');
+  if (!dynamicCategories) return;
+
+  // Generate a safe, lowercase, hyphenated key for use as data-menu-tab/panel value and DOM ID.
+  // Strips anything that isn't a letter, digit, or space, then replaces spaces with hyphens.
+  const safeKey = category
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+
+  // Create panel — hidden by default so it only shows when its tab is clicked
+  const section = document.createElement('div');
+  section.className = 'menu-tab-panel hidden';
+  section.dataset.menuPanel = safeKey;
+  section.id = `${safeKey}Menu`;
+  section.setAttribute('role', 'tabpanel');
+
+  // Create category heading
+  const heading = document.createElement('div');
+  heading.className = 'menu-category-heading';
+  heading.innerHTML = `
+    <span class="pill">New</span>
+    <h3>${category.toUpperCase()}</h3>
+    <p>Fresh items prepared with care.</p>
+  `;
+
+  // Create product grid
+  const grid = document.createElement('div');
+  grid.className = 'product-grid';
+  grid.id = `${safeKey}Grid`;
+
+  // Render products into grid
+  products.forEach((product) => {
+    const card = createProductCard(product);
+    grid.appendChild(card);
+  });
+
+  section.appendChild(heading);
+  section.appendChild(grid);
+  dynamicCategories.appendChild(section);
+
+  // Create tab button — insert before the Custom Order button
+  const menuToggle = document.querySelector('.menu-toggle');
+  if (menuToggle) {
+    const tabButton = document.createElement('button');
+    tabButton.type = 'button';
+    tabButton.setAttribute('role', 'tab');
+    tabButton.setAttribute('aria-selected', 'false');
+    tabButton.dataset.menuTab = safeKey;
+    tabButton.textContent = category;
+    // Clicking is handled by the delegated listener on .menu-toggle (set up above).
+
+    const customButton = menuToggle.querySelector('[data-menu-tab="custom"]');
+    if (customButton) {
+      menuToggle.insertBefore(tabButton, customButton);
+    } else {
+      menuToggle.appendChild(tabButton);
+    }
+  }
+}
+
+function createProductCard(product) {
+  const card = document.createElement('article');
+  card.className = 'product-card';
+  card.dataset.productId = product._id;
+  card.dataset.name = product.name;
+  card.dataset.price = String(product.price);
+  card.dataset.category = product.category;
+  card.dataset.stock = String(product.stock || 0);
+
+  const qty = cart.get(product.name)?.qty || 0;
+  if (qty > 0) card.classList.add('selected');
+
+  const isOutOfStock = (product.stock || 0) === 0;
+  const stockDisplay = isOutOfStock ? 'Out of stock' : `${product.stock} available`;
+  const stockClass = isOutOfStock ? 'out-of-stock' : 'in-stock';
+
+  card.innerHTML = `
+    <div class="product-image-shell">
+      <img src="${product.image || 'assets/product-placeholder.svg'}" alt="${product.name}" />
+    </div>
+    <div class="product-info">
+      <h4>${product.name}</h4>
+      <strong>${money(product.price)}</strong>
+      <small class="stock-status ${stockClass}">${stockDisplay}</small>
+    </div>
+    <div class="product-actions">
+      <div class="qty-control">
+        <button type="button" class="qty-minus" aria-label="Decrease ${product.name} quantity" ${isOutOfStock ? 'disabled' : ''}>−</button>
+        <span class="qty-value">${qty}</span>
+        <button type="button" class="qty-plus" aria-label="Increase ${product.name} quantity" ${isOutOfStock ? 'disabled' : ''}>+</button>
+      </div>
+      <span class="auto-cart-note">${isOutOfStock ? 'Currently unavailable' : 'Updates cart automatically'}</span>
+    </div>
+  `;
+
+  const minus = card.querySelector('.qty-minus');
+  const plus = card.querySelector('.qty-plus');
+  
+  if (!isOutOfStock) {
+    minus.addEventListener('click', () => {
+      updateQty(product.name, Number(product.price), (cart.get(product.name)?.qty || 0) - 1, product.stock);
+    });
+    plus.addEventListener('click', () => {
+      updateQty(product.name, Number(product.price), (cart.get(product.name)?.qty || 0) + 1, product.stock);
+    });
+  }
+  
+  return card;
+}
+
+function updateQty(name, price, nextQty, maxStock = null) {
+  const currentQty = cart.get(name)?.qty || 0;
   const safeQty = Math.max(0, Number(nextQty) || 0);
-  if (safeQty === 0) cart.delete(name);
-  else cart.set(name, { name, price, qty: safeQty, category: 'product' });
+  
+  // Enforce stock limits
+  if (maxStock !== null && safeQty > maxStock) {
+    showToast(`Only ${maxStock} items available`);
+    return;
+  }
+  
+  // Prevent going below 1 if item is in cart (allow 0 to remove)
+  if (currentQty > 0 && safeQty === 0) {
+    // Allow removal by going to 0
+    cart.delete(name);
+  } else if (safeQty === 0) {
+    // Don't add item with 0 quantity
+    return;
+  } else {
+    cart.set(name, { name, price, qty: safeQty, category: 'product' });
+  }
+  
   persistCart();
 
   document.querySelectorAll('.product-card').forEach((card) => {
@@ -230,6 +392,12 @@ function updateQty(name, price, nextQty) {
       const count = cart.get(name)?.qty || 0;
       if (value) value.textContent = String(count);
       card.classList.toggle('selected', count > 0);
+      
+      // Disable plus button if at max stock
+      const plusBtn = card.querySelector('.qty-plus');
+      if (plusBtn && maxStock !== null) {
+        plusBtn.disabled = count >= maxStock;
+      }
     }
   });
 
@@ -313,7 +481,12 @@ cartItems?.addEventListener('click', (event) => {
   if (stepper) {
     const productName = stepper.dataset.product;
     const item = cart.get(productName);
-    if (item) updateQty(productName, item.price, Number(item.qty) + Number(stepper.dataset.delta));
+    if (item) {
+      // Get current stock from product map
+      const product = productMap.get(productName);
+      const maxStock = product ? (product.stock || 0) : null;
+      updateQty(productName, item.price, Number(item.qty) + Number(stepper.dataset.delta), maxStock);
+    }
     return;
   }
   const removeButton = event.target.closest('[data-remove]');
@@ -326,6 +499,14 @@ cartItems?.addEventListener('click', (event) => {
         const value = card.querySelector('.qty-value');
         if (value) value.textContent = '0';
         card.classList.remove('selected');
+        
+        // Re-enable plus button after removal
+        const plusBtn = card.querySelector('.qty-plus');
+        if (plusBtn) {
+          const product = productMap.get(productName);
+          const maxStock = product ? (product.stock || 0) : null;
+          plusBtn.disabled = maxStock === 0;
+        }
       }
     });
     renderCart();

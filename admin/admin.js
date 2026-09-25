@@ -429,7 +429,7 @@ if (document.getElementById('newProductBtn')) {
   document.getElementById('newProductBtn').addEventListener('click', async () => {
     const name = prompt('Product name');
     if (!name) return;
-    const category = prompt('Category (Pickles/Powders/Tiffins/Sweets/Snacks)', 'Pickles');
+    const category = prompt('Category (any valid category name)', 'Pickles');
     const price = Number(prompt('Price', '10.00')) || 0;
     try {
       await api('/products', {

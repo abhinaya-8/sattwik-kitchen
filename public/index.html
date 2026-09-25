@@ -1,7 +1,7 @@
 
 <!doctype html>
 <html lang="en">
-<head>
+<head>ss
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sattwik Kitchen | Pure Vegetarian Home-Style Food</title>
@@ -137,11 +137,11 @@
       <div class="menu-tab-panel" id="picklesMenu" data-menu-panel="pickles" role="tabpanel">
         <div class="menu-category-heading">
           <span class="pill">Made in-house</span>
-          <h3>Pickles &amp; Pulihora Pulusu</h3>
+          <h3>PICKLES & PULIHORA PULUSU</h3>
           <p>Made in small batches with familiar, homemade flavours.</p>
         </div>
 
-        <div class="product-grid">
+        <div class="product-grid" id="picklesGrid">
           <article class="product-card" data-product="Tomato Pickle" data-price="8.99">
             <div class="product-image-shell needs-image">
               <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Tomato Pickle. -->
@@ -201,11 +201,11 @@
       <div class="menu-tab-panel hidden" id="powdersMenu" data-menu-panel="powders" role="tabpanel">
         <div class="menu-category-heading">
           <span class="pill">Everyday favourites</span>
-          <h3>Powders</h3>
+          <h3>POWDERS</h3>
           <p>Easy-to-use favourites for everyday meals.</p>
         </div>
 
-        <div class="product-grid">
+        <div class="product-grid" id="powdersGrid">
           <article class="product-card" data-product="Peanut Powder" data-price="6.99">
             <div class="product-image-shell needs-image">
               <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Peanut Powder. -->
@@ -248,11 +248,11 @@
 
     <div class="menu-category-heading">
         <span class="pill">Hyderabad-inspired</span>
-        <h3>Breakfast favourites</h3>
+        <h3>BREAKFAST</h3>
         <p>Authentic Hyderabad-inspired breakfast favourites prepared fresh.</p>
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid" id="tiffinsGrid">
 
         <!-- Dosa Platter -->
         <article class="product-card" data-product="Dosa Platter" data-price="10.00">
@@ -497,11 +497,12 @@
 
     <div class="menu-category-heading">
         <span class="pill">Sweets</span>
-        <h3>Sattwik Kitchen Sweets</h3>
+        <h3>SWEETS</h3>
         <p>Indian sweets made with traditional flavours.</p>
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid" id="sweetsGrid">
+
 
         <!-- Bobbatlu -->
         <article class="product-card"
@@ -878,11 +879,11 @@
 
     <div class="menu-category-heading">
         <span class="pill">Snacks / Chat</span>
-        <h3>Sattwik Kitchen Snacks</h3>
+        <h3>SNACKS</h3>
         <p>Indian snacks made fresh with familiar flavours.</p>
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid" id="snacksGrid">
 
         <!-- Gobi 65 -->
         <article class="product-card"
@@ -1207,6 +1208,9 @@
 
 </div>
 
+
+      <!-- Dynamic categories injected here by script.js when admin creates new categories -->
+      <div id="dynamicCategories"></div>
 
       <div class="menu-tab-panel hidden" id="customMenu" data-menu-panel="custom" role="tabpanel">
         <div class="custom-order-card">

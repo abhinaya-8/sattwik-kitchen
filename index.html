@@ -133,6 +133,9 @@
 
 </div>
 
+    <!-- Container for dynamically generated categories -->
+    <div id="dynamicCategories"></div>
+
     <div class="menu-tab-content reveal">
       <div class="menu-tab-panel" id="picklesMenu" data-menu-panel="pickles" role="tabpanel">
         <div class="menu-category-heading">
@@ -141,7 +144,7 @@
           <p>Fresh vegetarian favourites prepared in small batches.</p>
         </div>
 
-        <div class="product-grid">
+        <div class="product-grid" id="picklesGrid">
           <article class="product-card" data-product="Tomato Pickle" data-price="8.99">
             <div class="product-image-shell needs-image">
               <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Tomato Pickle. -->
@@ -205,7 +208,7 @@
           <p>Traditional flavour boosters made for easy everyday meals.</p>
         </div>
 
-        <div class="product-grid">
+        <div class="product-grid" id="powdersGrid">
           <article class="product-card" data-product="Peanut Powder" data-price="6.99">
             <div class="product-image-shell needs-image">
               <!-- PRODUCT IMAGE: Replace the src below with the WEB IMAGE URL for Peanut Powder. -->
@@ -252,7 +255,7 @@
         <p>Authentic Hyderabad-style breakfast favourites prepared fresh.</p>
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid" id="tiffinsGrid">
 
         <!-- Dosa Platter -->
         <article class="product-card" data-product="Dosa Platter" data-price="10.00">
@@ -501,7 +504,7 @@
         <p>Authentic Indian-style sweets prepared with traditional flavours.</p>
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid" id="sweetsGrid">
 
         <!-- Bobbatlu -->
         <article class="product-card"
@@ -882,7 +885,7 @@
         <p>Authentic Indian-style snacks prepared fresh with traditional flavours.</p>
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid" id="snacksGrid">
 
         <!-- Gobi 65 -->
         <article class="product-card"

@@ -35,6 +35,9 @@ async function createOrder(req, res) {
           return res.status(400).json({ message: `Invalid or inactive product: ${raw.productId}` });
         }
         const quantity = Math.max(1, Math.min(99, parseInt(raw.quantity, 10) || 1));
+        if (product.stock === 0) {
+          return res.status(400).json({ message: `${product.name} is currently out of stock.` });
+        }
         if (product.stock < quantity) {
           return res.status(400).json({ message: `Insufficient stock for ${product.name}. Available: ${product.stock}, requested: ${quantity}.` });
         }
@@ -141,7 +144,16 @@ async function createOrder(req, res) {
         { $inc: { stock: -item.quantity } },
         { new: true }
       ).lean();
-      if (!updated) throw new Error(`Insufficient stock for ${item.productName}.`);
+      if (!updated) {
+        const currentProduct = await Product.findById(item.productId).lean();
+        if (!currentProduct || !currentProduct.active) {
+          throw new Error(`Product ${item.productName} is no longer available.`);
+        }
+        if (currentProduct.stock === 0) {
+          throw new Error(`${item.productName} is currently out of stock.`);
+        }
+        throw new Error(`Insufficient stock for ${item.productName}. Available: ${currentProduct.stock}, requested: ${item.quantity}.`);
+      }
       stockChanges.set(String(item.productId), item.quantity);
       req.app.get('io')?.emit('product:stockUpdated', { productId: updated._id, stock: updated.stock, product: updated });
     }
