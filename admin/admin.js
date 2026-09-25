@@ -315,23 +315,46 @@ async function renderOrdersTable() {
 async function renderProductsTable() {
   const data = await api('/products/all');
   const products = data.products || [];
+
+  // Populate the categories datalist in the edit modal with all unique categories
+  // so the admin gets autocomplete suggestions when editing.
+  const datalist = document.getElementById('existingCategoriesList');
+  if (datalist) {
+    const cats = [...new Set(products.map((p) => p.category).filter(Boolean))].sort();
+    datalist.innerHTML = cats.map((c) => `<option value="${c}"></option>`).join('');
+  }
+
   const table = document.getElementById('productsTable');
   table.innerHTML = `
     <table>
-      <thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Active</th></tr></thead>
+      <thead><tr>
+        <th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Active</th><th>Actions</th>
+      </tr></thead>
       <tbody>
         ${products.map((product) => `
-          <tr>
-            <td>${product.name}</td>
-            <td>${product.category}</td>
+          <tr data-product-id="${product._id}">
+            <td>${escHtml(product.name)}</td>
+            <td>${escHtml(product.category)}</td>
             <td>${currency(product.price)}</td>
-            <td><input class="stock-input" data-product-id="${product._id}" type="number" min="0" step="1" value="${product.stock}"><button class="stock-save" data-product-id="${product._id}">Save</button></td>
+            <td>
+              <input class="stock-input" data-product-id="${product._id}"
+                     type="number" min="0" step="1" value="${product.stock}" />
+              <button class="stock-save" data-product-id="${product._id}">Save</button>
+            </td>
             <td>${product.active ? 'Yes' : 'No'}</td>
+            <td>
+              <button class="product-action-btn edit-btn"
+                      data-product-id="${product._id}">Edit</button>
+              <button class="product-action-btn delete-btn"
+                      data-product-id="${product._id}">Delete</button>
+            </td>
           </tr>
-        `).join('') || '<tr><td colspan="5">No products found</td></tr>'}
+        `).join('') || '<tr><td colspan="6">No products found</td></tr>'}
       </tbody>
     </table>
   `;
+
+  // Stock-save (existing behaviour — unchanged)
   table.querySelectorAll('.stock-save').forEach((button) => button.addEventListener('click', async () => {
     const input = table.querySelector(`.stock-input[data-product-id="${button.dataset.productId}"]`);
     const stock = Number(input.value);
@@ -341,7 +364,114 @@ async function renderProductsTable() {
       await renderProductsTable();
     } catch (error) { alert(error.message || 'Could not update stock'); }
   }));
+
+  // Edit — open modal pre-filled with product data
+  table.querySelectorAll('.edit-btn').forEach((button) => button.addEventListener('click', () => {
+    const id = button.dataset.productId;
+    const product = products.find((p) => String(p._id) === id);
+    if (!product) return;
+    openEditModal(product);
+  }));
+
+  // Delete — confirm then call DELETE /api/products/:id
+  table.querySelectorAll('.delete-btn').forEach((button) => button.addEventListener('click', async () => {
+    const id = button.dataset.productId;
+    const product = products.find((p) => String(p._id) === id);
+    if (!product) return;
+    if (!confirm(`Delete "${product.name}"?\n\nThis cannot be undone.`)) return;
+    try {
+      await api(`/products/${id}`, { method: 'DELETE' });
+      await renderProductsTable();
+    } catch (error) {
+      alert(error.message || 'Could not delete product');
+    }
+  }));
 }
+
+// Simple HTML-escape to prevent XSS when injecting product names into the table
+function escHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// -----------------------------------------------------------------------
+// Product edit modal logic
+// -----------------------------------------------------------------------
+
+function openEditModal(product) {
+  document.getElementById('editProductId').value = product._id;
+  document.getElementById('editName').value = product.name || '';
+  document.getElementById('editCategory').value = product.category || '';
+  document.getElementById('editPrice').value = product.price ?? '';
+  document.getElementById('editStock').value = product.stock ?? 0;
+  document.getElementById('editImage').value =
+    product.image === 'assets/product-placeholder.svg' ? '' : (product.image || '');
+  document.getElementById('editActive').checked = product.active !== false;
+  document.getElementById('editFormMessage').textContent = '';
+  document.getElementById('productEditModal').hidden = false;
+  document.getElementById('editName').focus();
+}
+
+function closeEditModal() {
+  document.getElementById('productEditModal').hidden = true;
+}
+
+// Close via ×, Cancel button, or Escape key
+document.getElementById('modalCloseBtn')?.addEventListener('click', closeEditModal);
+document.getElementById('editCancelBtn')?.addEventListener('click', closeEditModal);
+document.getElementById('productEditModal')?.addEventListener('click', (e) => {
+  // Close if backdrop itself (not inner shell) is clicked
+  if (e.target === e.currentTarget) closeEditModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeEditModal();
+});
+
+// Save changes via PUT /api/products/:id
+document.getElementById('productEditForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msgEl = document.getElementById('editFormMessage');
+  msgEl.textContent = '';
+
+  const id = document.getElementById('editProductId').value;
+  const name = document.getElementById('editName').value.trim();
+  const category = document.getElementById('editCategory').value.trim();
+  const price = parseFloat(document.getElementById('editPrice').value);
+  const stock = parseInt(document.getElementById('editStock').value, 10);
+  const imageRaw = document.getElementById('editImage').value.trim();
+  const image = imageRaw || 'assets/product-placeholder.svg';
+  const active = document.getElementById('editActive').checked;
+
+  // Client-side validation
+  if (!name) { msgEl.textContent = 'Product name is required.'; return; }
+  if (!category) { msgEl.textContent = 'Category is required.'; return; }
+  if (!Number.isFinite(price) || price < 0) { msgEl.textContent = 'Enter a valid non-negative price.'; return; }
+  if (!Number.isInteger(stock) || stock < 0) { msgEl.textContent = 'Stock must be a non-negative whole number.'; return; }
+
+  const saveBtn = document.getElementById('editSaveBtn');
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Saving…';
+
+  try {
+    await api(`/products/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ name, category, price, stock, image, active })
+    });
+    setMessage(msgEl, 'Saved successfully!', true);
+    // Refresh the products table so changes are immediately visible
+    await renderProductsTable();
+    // Close the modal after a short delay so the admin can see the success message
+    setTimeout(closeEditModal, 900);
+  } catch (error) {
+    msgEl.textContent = error.message || 'Could not save changes.';
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = 'Save changes';
+  }
+});
 
 async function renderCustomersTable() {
   const data = await api('/customers?limit=100');
