@@ -206,10 +206,11 @@
         </label>
         <label>
           Category
-          <input id="editCategory" type="text" required autocomplete="off" placeholder="e.g. Pickles, Beverages…"
-                 list="existingCategoriesList" />
-          <datalist id="existingCategoriesList"></datalist>
-          <small style="color:var(--muted);font-size:11px;font-weight:normal">Type any category — existing or new.</small>
+          <select id="editCategorySelect" required>
+            <option value="">Select category...</option>
+            <option value="+new">+ New Category</option>
+          </select>
+          <input id="editNewCategoryInput" type="text" autocomplete="off" placeholder="Enter new category name" style="display:none;margin-top:8px;" />
         </label>
         <label>
           Price ($)
@@ -232,6 +233,53 @@
           <button type="button" class="btn btn-secondary" id="editCancelBtn">Cancel</button>
         </div>
         <p id="editFormMessage" class="form-message" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       Product add modal — shown by JS when the admin clicks "Add product"
+       ===================================================================== -->
+  <div id="productAddModal" class="modal-backdrop" aria-modal="true" role="dialog" aria-labelledby="addModalTitle" hidden>
+    <div class="modal-shell">
+      <div class="modal-header">
+        <h3 id="addModalTitle">Add New Product</h3>
+        <button type="button" class="modal-close" id="addModalCloseBtn" aria-label="Close">&times;</button>
+      </div>
+      <form id="productAddForm" class="stacked-form" novalidate>
+        <label>
+          Product Name
+          <input id="addName" type="text" required autocomplete="off" placeholder="e.g. Mango Pickle" />
+        </label>
+        <label>
+          Category
+          <select id="addCategorySelect" required>
+            <option value="">Select category...</option>
+            <option value="+new">+ New Category</option>
+          </select>
+          <input id="addNewCategoryInput" type="text" autocomplete="off" placeholder="Enter new category name" style="display:none;margin-top:8px;" />
+        </label>
+        <label>
+          Price ($)
+          <input id="addPrice" type="number" required min="0" step="0.01" placeholder="e.g. 9.99" />
+        </label>
+        <label>
+          Stock (units)
+          <input id="addStock" type="number" required min="0" step="1" placeholder="e.g. 20" />
+        </label>
+        <label>
+          Image URL
+          <input id="addImage" type="text" autocomplete="off" placeholder="https://… or leave blank for placeholder" />
+        </label>
+        <label style="flex-direction:row;align-items:center;gap:8px;cursor:pointer">
+          <input id="addActive" type="checkbox" style="width:auto;min-height:auto" checked />
+          Active (visible to customers)
+        </label>
+        <div style="display:flex;gap:10px;margin-top:4px">
+          <button type="submit" class="btn btn-primary" id="addSaveBtn">Add Product</button>
+          <button type="button" class="btn btn-secondary" id="addCancelBtn">Cancel</button>
+        </div>
+        <p id="addFormMessage" class="form-message" aria-live="polite"></p>
       </form>
     </div>
   </div>

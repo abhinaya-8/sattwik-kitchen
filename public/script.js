@@ -194,11 +194,11 @@ function renderProductTiles(products) {
   if (tiffinsGrid) tiffinsGrid.innerHTML = '';
   if (sweetsGrid) sweetsGrid.innerHTML = '';
   if (snacksGrid) snacksGrid.innerHTML = '';
+  if (dynamicCategories) dynamicCategories.innerHTML = '';
 
   // Remove existing dynamic panels and their corresponding tab buttons cleanly.
   // Any tab button inside .menu-toggle that doesn't match a known static key is dynamic.
   const STATIC_TABS = new Set(['pickles', 'powders', 'breakfast', 'sweets', 'snacks', 'custom']);
-  if (dynamicCategories) dynamicCategories.innerHTML = '';
   const menuToggle = document.querySelector('.menu-toggle');
   if (menuToggle) {
     menuToggle.querySelectorAll('[data-menu-tab]').forEach((btn) => {
@@ -220,10 +220,8 @@ function renderProductTiles(products) {
     'Pickles': { grid: picklesGrid, tab: 'pickles' },
     'Powders': { grid: powdersGrid, tab: 'powders' },
     'Tiffins': { grid: tiffinsGrid, tab: 'breakfast' },
-    'Breakfast/Tiffins': { grid: tiffinsGrid, tab: 'breakfast' },
     'Sweets': { grid: sweetsGrid, tab: 'sweets' },
-    'Snacks': { grid: snacksGrid, tab: 'snacks' },
-    'Snacks / Chat': { grid: snacksGrid, tab: 'snacks' }
+    'Snacks': { grid: snacksGrid, tab: 'snacks' }
   };
 
   // Render products for each category

@@ -404,19 +404,65 @@ function escHtml(str) {
 function openEditModal(product) {
   document.getElementById('editProductId').value = product._id;
   document.getElementById('editName').value = product.name || '';
-  document.getElementById('editCategory').value = product.category || '';
   document.getElementById('editPrice').value = product.price ?? '';
   document.getElementById('editStock').value = product.stock ?? 0;
   document.getElementById('editImage').value =
     product.image === 'assets/product-placeholder.svg' ? '' : (product.image || '');
   document.getElementById('editActive').checked = product.active !== false;
   document.getElementById('editFormMessage').textContent = '';
+
+  // Load categories and set current category
+  loadCategoriesForEditModal(product.category);
+
   document.getElementById('productEditModal').hidden = false;
+  document.getElementById('productEditModal').setAttribute('aria-hidden', 'false');
   document.getElementById('editName').focus();
+}
+
+async function loadCategoriesForEditModal(currentCategory) {
+  try {
+    const data = await api('/products/all');
+    const products = data.products || [];
+    
+    // Extract unique categories (case-insensitive)
+    const categoryMap = new Map();
+    products.forEach((product) => {
+      const normalized = product.category.toLowerCase().trim();
+      if (!categoryMap.has(normalized)) {
+        categoryMap.set(normalized, product.category); // Keep original casing
+      }
+    });
+    
+    const uniqueCategories = Array.from(categoryMap.values()).sort();
+    
+    // Populate category dropdown
+    const select = document.getElementById('editCategorySelect');
+    if (select) {
+      // Keep the first two options
+      select.innerHTML = '<option value="">Select category...</option><option value="+new">+ New Category</option>';
+      
+      // Add existing categories
+      uniqueCategories.forEach((category) => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        if (category === currentCategory) {
+          option.selected = true;
+        }
+        select.appendChild(option);
+      });
+    }
+  } catch (error) {
+    console.error('Failed to load categories:', error);
+  }
 }
 
 function closeEditModal() {
   document.getElementById('productEditModal').hidden = true;
+  document.getElementById('productEditModal').setAttribute('aria-hidden', 'true');
+  document.getElementById('productEditForm').reset();
+  document.getElementById('editNewCategoryInput').style.display = 'none';
+  document.getElementById('editFormMessage').textContent = '';
 }
 
 // Close via ×, Cancel button, or Escape key
@@ -427,7 +473,23 @@ document.getElementById('productEditModal')?.addEventListener('click', (e) => {
   if (e.target === e.currentTarget) closeEditModal();
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeEditModal();
+  if (e.key === 'Escape') {
+    closeEditModal();
+    closeAddModal();
+  }
+});
+
+document.getElementById('editCategorySelect')?.addEventListener('change', (e) => {
+  const newCategoryInput = document.getElementById('editNewCategoryInput');
+  if (e.target.value === '+new') {
+    newCategoryInput.style.display = 'block';
+    newCategoryInput.required = true;
+    newCategoryInput.focus();
+  } else {
+    newCategoryInput.style.display = 'none';
+    newCategoryInput.required = false;
+    newCategoryInput.value = '';
+  }
 });
 
 // Save changes via PUT /api/products/:id
@@ -438,12 +500,21 @@ document.getElementById('productEditForm')?.addEventListener('submit', async (e)
 
   const id = document.getElementById('editProductId').value;
   const name = document.getElementById('editName').value.trim();
-  const category = document.getElementById('editCategory').value.trim();
+  const categorySelect = document.getElementById('editCategorySelect').value;
+  const newCategoryInput = document.getElementById('editNewCategoryInput').value.trim();
   const price = parseFloat(document.getElementById('editPrice').value);
   const stock = parseInt(document.getElementById('editStock').value, 10);
   const imageRaw = document.getElementById('editImage').value.trim();
   const image = imageRaw || 'assets/product-placeholder.svg';
   const active = document.getElementById('editActive').checked;
+
+  // Determine category
+  let category;
+  if (categorySelect === '+new') {
+    category = newCategoryInput;
+  } else {
+    category = categorySelect;
+  }
 
   // Client-side validation
   if (!name) { msgEl.textContent = 'Product name is required.'; return; }
@@ -555,23 +626,128 @@ async function exportData(kind) {
   }
 }
 
+// ===============================
+// PRODUCT ADD MODAL
+// ===============================
 if (document.getElementById('newProductBtn')) {
   document.getElementById('newProductBtn').addEventListener('click', async () => {
-    const name = prompt('Product name');
-    if (!name) return;
-    const category = prompt('Category (any valid category name)', 'Pickles');
-    const price = Number(prompt('Price', '10.00')) || 0;
-    try {
-      await api('/products', {
-        method: 'POST',
-        body: JSON.stringify({ name, category, price, active: true, stock: 0, lowStockThreshold: 5 })
-      });
-      await loadDashboardData();
-    } catch (error) {
-      alert(error.message || 'Could not add product');
-    }
+    await loadCategoriesForAddModal();
+    document.getElementById('productAddModal').hidden = false;
+    document.getElementById('productAddModal').setAttribute('aria-hidden', 'false');
   });
 }
+
+document.getElementById('addModalCloseBtn')?.addEventListener('click', closeAddModal);
+document.getElementById('addCancelBtn')?.addEventListener('click', closeAddModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeAddModal();
+});
+
+function closeAddModal() {
+  document.getElementById('productAddModal').hidden = true;
+  document.getElementById('productAddModal').setAttribute('aria-hidden', 'true');
+  document.getElementById('productAddForm').reset();
+  document.getElementById('addNewCategoryInput').style.display = 'none';
+  document.getElementById('addFormMessage').textContent = '';
+}
+
+async function loadCategoriesForAddModal() {
+  try {
+    const data = await api('/products/all');
+    const products = data.products || [];
+    
+    // Extract unique categories (case-insensitive)
+    const categoryMap = new Map();
+    products.forEach((product) => {
+      const normalized = product.category.toLowerCase().trim();
+      if (!categoryMap.has(normalized)) {
+        categoryMap.set(normalized, product.category); // Keep original casing
+      }
+    });
+    
+    const uniqueCategories = Array.from(categoryMap.values()).sort();
+    
+    // Populate category dropdown
+    const select = document.getElementById('addCategorySelect');
+    if (select) {
+      // Keep the first two options
+      select.innerHTML = '<option value="">Select category...</option><option value="+new">+ New Category</option>';
+      
+      // Add existing categories
+      uniqueCategories.forEach((category) => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        select.appendChild(option);
+      });
+    }
+  } catch (error) {
+    console.error('Failed to load categories:', error);
+  }
+}
+
+document.getElementById('addCategorySelect')?.addEventListener('change', (e) => {
+  const newCategoryInput = document.getElementById('addNewCategoryInput');
+  if (e.target.value === '+new') {
+    newCategoryInput.style.display = 'block';
+    newCategoryInput.required = true;
+    newCategoryInput.focus();
+  } else {
+    newCategoryInput.style.display = 'none';
+    newCategoryInput.required = false;
+    newCategoryInput.value = '';
+  }
+});
+
+document.getElementById('productAddForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msgEl = document.getElementById('addFormMessage');
+  msgEl.textContent = '';
+
+  const name = document.getElementById('addName').value.trim();
+  const categorySelect = document.getElementById('addCategorySelect').value;
+  const newCategoryInput = document.getElementById('addNewCategoryInput').value.trim();
+  const price = parseFloat(document.getElementById('addPrice').value);
+  const stock = parseInt(document.getElementById('addStock').value, 10);
+  const imageRaw = document.getElementById('addImage').value.trim();
+  const image = imageRaw || 'assets/product-placeholder.svg';
+  const active = document.getElementById('addActive').checked;
+
+  // Determine category
+  let category;
+  if (categorySelect === '+new') {
+    category = newCategoryInput;
+  } else {
+    category = categorySelect;
+  }
+
+  // Client-side validation
+  if (!name) { msgEl.textContent = 'Product name is required.'; return; }
+  if (!category) { msgEl.textContent = 'Category is required.'; return; }
+  if (!Number.isFinite(price) || price < 0) { msgEl.textContent = 'Enter a valid non-negative price.'; return; }
+  if (!Number.isInteger(stock) || stock < 0) { msgEl.textContent = 'Stock must be a non-negative whole number.'; return; }
+
+  const saveBtn = document.getElementById('addSaveBtn');
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Adding…';
+
+  try {
+    await api('/products', {
+      method: 'POST',
+      body: JSON.stringify({ name, category, price, stock, image, active, lowStockThreshold: 5 })
+    });
+    setMessage(msgEl, 'Product added successfully!', true);
+    // Refresh the products table so changes are immediately visible
+    await renderProductsTable();
+    // Close the modal after a short delay so the admin can see the success message
+    setTimeout(closeAddModal, 900);
+  } catch (error) {
+    msgEl.textContent = error.message || 'Could not add product.';
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = 'Add Product';
+  }
+});
 
 
 // ===============================
